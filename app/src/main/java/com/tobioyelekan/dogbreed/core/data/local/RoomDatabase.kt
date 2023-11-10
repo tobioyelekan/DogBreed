@@ -1,4 +1,11 @@
 package com.tobioyelekan.dogbreed.core.data.local
 
-class RoomDatabase {
+import androidx.room.Database
+import androidx.room.RoomDatabase
+import com.tobioyelekan.dogbreed.features.breeds.data.datasource.local.model.BreedDao
+import com.tobioyelekan.dogbreed.features.breeds.data.datasource.local.model.BreedEntity
+
+@Database(entities = [BreedEntity::class], version = 1, exportSchema = false)
+abstract class DogBreedDatabase: RoomDatabase(){
+    abstract fun breedDao(): BreedDao
 }
