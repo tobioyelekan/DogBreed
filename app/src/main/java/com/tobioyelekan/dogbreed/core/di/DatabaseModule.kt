@@ -3,7 +3,7 @@ package com.tobioyelekan.dogbreed.core.di
 import android.content.Context
 import androidx.room.Room
 import com.tobioyelekan.dogbreed.core.data.local.DogBreedDatabase
-import com.tobioyelekan.dogbreed.features.breeds.data.datasource.local.model.BreedDao
+import com.tobioyelekan.dogbreed.features.breeds.data.datasource.local.BreedDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
