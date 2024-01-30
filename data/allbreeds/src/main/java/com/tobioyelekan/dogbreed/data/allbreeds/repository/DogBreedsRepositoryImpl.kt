@@ -46,10 +46,9 @@ class DogBreedsRepositoryImpl @Inject constructor(
                             it.isFavorite = true
                         }
                     }
-                    dogBreedDao.saveBreeds(dogBreedEntities)
-                } else {
-                    dogBreedDao.saveBreeds(dogBreedEntities)
                 }
+
+                dogBreedDao.saveBreeds(dogBreedEntities)
                 //end
 
                 Result.Success(dogBreedDao.getAllBreeds().map { it.toDomainModel() })
