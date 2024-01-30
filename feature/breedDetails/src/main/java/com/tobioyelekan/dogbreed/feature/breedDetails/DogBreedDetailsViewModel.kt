@@ -10,7 +10,7 @@ import com.tobioyelekan.dogbreed.domain.breedDetails.DeleteFavoriteBreedUsecase
 import com.tobioyelekan.dogbreed.domain.breedDetails.GetBreedDetailsUseCase
 import com.tobioyelekan.dogbreed.feature.breedDetails.navigation.breedNameArgs
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -29,6 +29,7 @@ class DogBreedDetailsViewModel @Inject constructor(
     getBreedDetailsUseCase: GetBreedDetailsUseCase,
     private val addOrRemoveFavoriteBreedUseCase: AddFavoriteBreedUseCase,
     private val deleteFavoriteBreedUseCase: DeleteFavoriteBreedUsecase,
+    private val ioDispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
     private val breedName =
@@ -58,7 +59,7 @@ class DogBreedDetailsViewModel @Inject constructor(
             )
 
     fun onFavoriteClicked(isFavorite: Boolean) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(ioDispatcher) {
            val result =  if (isFavorite) addOrRemoveFavoriteBreedUseCase.invoke(breedName)
             else deleteFavoriteBreedUseCase.invoke(breedName)
 
