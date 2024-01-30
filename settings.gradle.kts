@@ -15,4 +15,20 @@ dependencyResolutionManagement {
 
 rootProject.name = "DogBreed"
 include(":app")
- 
+include(":core:network")
+include(":core:database")
+include(":core:model")
+include(":core:common")
+include(":core:designsystem")
+include(":feature:allbreeds")
+include(":feature:favorites")
+include(":feature:subbreeds")
+include(":data:allbreeds")
+include(":data:breedDetails")
+include(":data:favorites")
+include(":data:subbreeds")
+include(":domain:allbreeds")
+include(":domain:breedDetails")
+include(":domain:subbreeds")
+include(":domain:favorites")
+include(":feature:breedDetails")
