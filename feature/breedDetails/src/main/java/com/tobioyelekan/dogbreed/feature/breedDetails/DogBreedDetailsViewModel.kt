@@ -27,7 +27,7 @@ import javax.inject.Inject
 class DogBreedDetailsViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     getBreedDetailsUseCase: GetBreedDetailsUseCase,
-    private val addOrRemoveFavoriteBreedUseCase: AddFavoriteBreedUseCase,
+    private val addFavoriteBreedUseCase: AddFavoriteBreedUseCase,
     private val deleteFavoriteBreedUseCase: DeleteFavoriteBreedUsecase,
     private val ioDispatcher: CoroutineDispatcher
 ) : ViewModel() {
@@ -60,12 +60,14 @@ class DogBreedDetailsViewModel @Inject constructor(
 
     fun onFavoriteClicked(isFavorite: Boolean) {
         viewModelScope.launch(ioDispatcher) {
-           val result =  if (isFavorite) addOrRemoveFavoriteBreedUseCase.invoke(breedName)
-            else deleteFavoriteBreedUseCase.invoke(breedName)
+            val result = if (isFavorite)
+                deleteFavoriteBreedUseCase.invoke(breedName)
+            else
+                addFavoriteBreedUseCase.invoke(breedName)
 
             when (result) {
                 is Result.Success -> {
-                    val msg = if (isFavorite) "Added as favorite" else "Removed as favorite"
+                    val msg = if (isFavorite) "Removed as favorite" else "Added as favorite"
                     _actionState.emit(ActionState.ShowMessage(msg))
                 }
 

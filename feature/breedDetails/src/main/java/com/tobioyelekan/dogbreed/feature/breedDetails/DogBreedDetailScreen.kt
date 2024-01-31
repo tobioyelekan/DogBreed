@@ -68,7 +68,7 @@ internal fun DogBreedDetailScreen(
         title = appBarTitle,
         onBackClicked = onBackClicked,
         actions = {
-            IconButton(onClick = { viewModel.onFavoriteClicked(!isFavorite) }) {
+            IconButton(onClick = { viewModel.onFavoriteClicked(isFavorite) }) {
                 Icon(
                     imageVector = if (isFavorite)
                         Icons.Filled.Favorite
@@ -117,6 +117,7 @@ private fun DogBreedDetailsContent(
             contentScale = ContentScale.Crop,
             contentDescription = null,
             placeholder = painterResource(id = R.drawable.ic_dog_placeholder),
+            error = painterResource(id = R.drawable.ic_dog_placeholder),
             modifier = Modifier.height(200.dp)
         )
 
