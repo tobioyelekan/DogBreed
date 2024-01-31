@@ -21,9 +21,7 @@ class DogSubBreedRepositoryImpl @Inject constructor(
                 )
         ) {
             is ApiResult.Success -> {
-                val data = response.data.images.map { imageUrl ->
-                    SubBreedImage(imageUrl)
-                }
+                val data = response.data.toDomain()
                 Result.Success(value = data)
             }
 
