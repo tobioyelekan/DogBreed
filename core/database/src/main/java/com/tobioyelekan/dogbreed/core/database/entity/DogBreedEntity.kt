@@ -13,7 +13,7 @@ data class DogBreedEntity(
     val name: String,
     val imageUrl: String,
     val subBreeds: List<String>,
-    var isFavorite: Boolean
+    val isFavorite: Boolean
 )
 
 class DogBreedEntityConverter {
