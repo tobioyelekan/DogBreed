@@ -4,6 +4,7 @@ import com.tobioyelekan.dogbreed.core.network.DogBreedApiService
 import com.tobioyelekan.dogbreed.core.common.result.Result
 import com.tobioyelekan.dogbreed.core.model.SubBreedImage
 import com.tobioyelekan.dogbreed.core.network.adapter.ApiResult
+import com.tobioyelekan.dogbreed.data.subbreeds.mapper.toDomain
 import javax.inject.Inject
 
 class DogSubBreedRepositoryImpl @Inject constructor(
@@ -34,6 +35,4 @@ class DogSubBreedRepositoryImpl @Inject constructor(
             }
         }
     }
-//    kotlinx.serialization.json.internal.JsonDecodingException: Unexpected JSON token at offset 353: Encountered an unknown key 'status' at path: $.message
-
 }
