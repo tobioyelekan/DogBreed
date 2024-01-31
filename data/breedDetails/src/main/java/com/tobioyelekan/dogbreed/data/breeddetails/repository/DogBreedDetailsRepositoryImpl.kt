@@ -8,6 +8,8 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import com.tobioyelekan.dogbreed.core.common.result.Result
 import com.tobioyelekan.dogbreed.core.database.entity.toDomainModel
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class DogBreedDetailsRepositoryImpl @Inject constructor(
@@ -33,7 +35,7 @@ class DogBreedDetailsRepositoryImpl @Inject constructor(
 
     override suspend fun removeFavoriteBreed(name: String): Result<Unit> {
         return try {
-            dogBreedDao.updateBreed(name, true)
+            dogBreedDao.updateBreed(name, false)
             Result.Success(Unit)
         } catch (e: SQLiteException) {
             Result.Failure("something went wrong, please try again")
