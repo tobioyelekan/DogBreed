@@ -6,6 +6,9 @@ import com.tobioyelekan.dogbreed.core.network.DogBreedApiService
 import com.tobioyelekan.dogbreed.core.network.adapter.ApiResult
 import com.tobioyelekan.dogbreed.core.common.result.Result
 import com.tobioyelekan.dogbreed.core.database.entity.toDomainModel
+import com.tobioyelekan.dogbreed.core.model.DogBreed
+import com.tobioyelekan.dogbreed.data.allbreeds.mapper.toEntity
+import com.tobioyelekan.dogbreed.data.allbreeds.util.mergeLists
 import javax.inject.Inject
 
 class DogBreedsRepositoryImpl @Inject constructor(
@@ -13,7 +16,7 @@ class DogBreedsRepositoryImpl @Inject constructor(
     private val dogBreedService: DogBreedApiService
 ) : DogBreedsRepository {
 
-    override suspend fun getAllBreeds(): Result<List<com.tobioyelekan.dogbreed.core.model.DogBreed>> {
+    override suspend fun getAllBreeds(): Result<List<DogBreed>> {
         return when (val response = dogBreedService.getAllDogBreeds()) {
             is ApiResult.Success -> {
                 val dogBreedEntities = mutableListOf<DogBreedEntity>()
@@ -22,36 +25,25 @@ class DogBreedsRepositoryImpl @Inject constructor(
                     val breedImageResponse = dogBreedService.getBreedRandomImage(breed.key)
                     if (breedImageResponse is ApiResult.Success) {
                         dogBreedEntities.add(
-                            DogBreedEntity(
-                                name = breed.key,
-                                imageUrl = breedImageResponse.data.imageUrl,
-                                subBreeds = breed.value,
-                                isFavorite = false
-                            )
+                            breed.toEntity(breedImageResponse.data.imageUrl)
                         )
                     } else {
                         return Result.Failure("Something went wrong")
                     }
                 }
 
-                //start 
-                //isFavorite doesn't come from the backend, hence when a refresh to the server is called, isFavorite field in the db is overwritten to false,
-                //to avoid that we first get the locally stored breeds with `true` value
-                //and then use that to update the fields gotten from the internet where their name (unique identity) matches.
                 val cachedFavoritesBreeds = dogBreedDao.getAllBreeds().filter { it.isFavorite }
 
-                if (cachedFavoritesBreeds.isNotEmpty()) {
-                    cachedFavoritesBreeds.forEach { breed ->
-                        dogBreedEntities.find { it.name == breed.name }?.let {
-                            it.isFavorite = true
-                        }
-                    }
-                }
+                val entities = if (cachedFavoritesBreeds.isEmpty())
+                    dogBreedEntities
+                else
+                    mergeLists(dogBreedEntities, cachedFavoritesBreeds)
 
-                dogBreedDao.saveBreeds(dogBreedEntities)
+                dogBreedDao.nukeTable()
+                dogBreedDao.saveBreeds(entities)
                 //end
 
-                Result.Success(dogBreedDao.getAllBreeds().map { it.toDomainModel() })
+                Result.Success(entities.map { it.toDomainModel() })
             }
 
             is ApiResult.Error -> {
