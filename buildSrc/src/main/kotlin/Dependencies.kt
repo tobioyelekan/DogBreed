@@ -20,6 +20,9 @@ object Version {
     const val androidJUnit = "1.1.5"
     const val espresso = "3.5.1"
     const val composeBomTest = "2023.03.00"
+    const val mockk = "1.13.3"
+    const val turbine = "1.0.0"
+    const val coroutineTest = "1.5.2"
 }
 
 object Dependencies {
@@ -91,6 +94,9 @@ object Dependencies {
         const val composeJunitUiTest = "androidx.compose.ui:ui-test-junit4"
         const val composeUiTooling = "androidx.compose.ui:ui-tooling"
         const val composeManifestUITest = "androidx.compose.ui:ui-test-manifest"
+        const val mockk = "io.mockk:mockk:${Version.mockk}"
+        const val turbine = "app.cash.turbine:turbine:${Version.turbine}"
+        const val coroutineTest = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Version.coroutineTest}"
     }
 }
 
