@@ -23,4 +23,7 @@ interface DogBreedDao {
 
     @Query("UPDATE breed_table SET isFavorite=:isFavorite WHERE name =:breedName")
     fun updateBreed(breedName: String, isFavorite: Boolean)
+
+    @Query("DELETE FROM breed_table")
+    fun nukeTable()
 }
