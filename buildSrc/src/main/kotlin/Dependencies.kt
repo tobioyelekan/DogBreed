@@ -40,7 +40,7 @@ object Dependencies {
         const val composeActivity = "androidx.activity:activity-compose:${Version.composeActivity}"
         const val ui = "androidx.compose.ui:ui"
         const val uiGraphics = "androidx.compose.ui:ui-graphics"
-        const val toolingPreview = "androidx.compose.ui:ui-tooling-preview"
+        const val toolingPreview = "androidx.compose.ui:ui-tooling"
         const val material3 = "androidx.compose.material3:material3:${Version.material3}"
     }
 
