@@ -14,6 +14,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
@@ -28,7 +29,7 @@ fun DogBreedItem(
 ) {
     val model = ImageRequest.Builder(LocalContext.current).data(imgUrl).crossfade(true).build()
 
-    Box {
+    Box(Modifier.testTag("Item")) {
         AsyncImage(
             model = model,
             contentScale = ContentScale.Crop,
