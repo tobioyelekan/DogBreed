@@ -40,8 +40,6 @@ android {
 }
 
 dependencies {
-
-    implementation(Dependencies.Hilt.hiltCompose)
     implementation(Dependencies.Hilt.hiltCore)
     ksp(Dependencies.Hilt.hiltCompiler)
     implementation(Dependencies.Hilt.hiltAndroid)
@@ -52,4 +50,7 @@ dependencies {
     implementation(project(":core:designsystem"))
     implementation(project(":core:model"))
     implementation(project(":core:common"))
+
+    testImplementation(project(":core:testing"))
+    testImplementation(kotlin("test"))
 }
