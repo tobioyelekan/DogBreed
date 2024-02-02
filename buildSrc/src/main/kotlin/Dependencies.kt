@@ -23,6 +23,8 @@ object Version {
     const val mockk = "1.13.3"
     const val turbine = "1.0.0"
     const val coroutineTest = "1.5.2"
+    const val androidxTestCore = "1.5.0"
+    const val androidxTestRunner = "1.2.0"
 }
 
 object Dependencies {
@@ -88,6 +90,7 @@ object Dependencies {
 
     object Testing {
         const val junit = "junit:junit:${Version.junit}"
+        const val androidxTestCore = "androidx.test:core-ktx:${Version.androidxTestCore}"
         const val androidJUnit = "androidx.test.ext:junit:${Version.androidJUnit}"
         const val espresso = "androidx.test.espresso:espresso-core:${Version.espresso}"
         const val composeBomTest = "androidx.compose:compose-bom:${Version.composeBomTest}"
@@ -97,6 +100,7 @@ object Dependencies {
         const val mockk = "io.mockk:mockk:${Version.mockk}"
         const val turbine = "app.cash.turbine:turbine:${Version.turbine}"
         const val coroutineTest = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Version.coroutineTest}"
+        const val androidxTestRunner = "androidx.test:runner:${Version.androidxTestRunner}"
     }
 }
 

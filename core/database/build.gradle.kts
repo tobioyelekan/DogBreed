@@ -32,6 +32,9 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
+    packaging {
+        resources.excludes.add("META-INF/*")
+    }
 }
 
 dependencies {
@@ -43,5 +46,10 @@ dependencies {
 
     implementation(project(":core:model"))
 
+    androidTestImplementation(project(":core:testing"))
+    androidTestImplementation(kotlin("test"))
+
     androidTestImplementation(Dependencies.Room.roomTesting)
+    androidTestImplementation(Dependencies.Testing.androidxTestCore)
+    androidTestImplementation(Dependencies.Testing.androidxTestRunner)
 }
