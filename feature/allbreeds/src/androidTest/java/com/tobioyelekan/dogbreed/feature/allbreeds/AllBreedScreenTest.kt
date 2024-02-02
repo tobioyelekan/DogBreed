@@ -2,8 +2,8 @@ package com.tobioyelekan.dogbreed.feature.allbreeds
 
 import androidx.activity.ComponentActivity
 import androidx.compose.ui.test.assertCountEquals
+import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsNotDisplayed
-import androidx.compose.ui.test.isDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onNodeWithTag
@@ -26,7 +26,7 @@ class AllBreedScreenTest {
         }
 
         composeTestRule.onNodeWithTag("loader")
-            .isDisplayed()
+            .assertIsDisplayed()
     }
 
     @Test
@@ -58,6 +58,6 @@ class AllBreedScreenTest {
             .assertIsNotDisplayed()
 
         composeTestRule.onNodeWithText("Something went wrong")
-            .isDisplayed()
+            .assertIsDisplayed()
     }
 }

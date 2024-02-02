@@ -30,7 +30,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -40,19 +42,19 @@ import com.tobioyelekan.dogbreed.core.designsystem.R
 import com.tobioyelekan.dogbreed.core.designsystem.components.DogAppBar
 import com.tobioyelekan.dogbreed.core.designsystem.components.ErrorState
 import com.tobioyelekan.dogbreed.core.designsystem.components.LoadingIndicator
+import com.tobioyelekan.dogbreed.core.designsystem.theme.DogBreedTheme
 import com.tobioyelekan.dogbreed.core.model.DogBreed
 import com.tobioyelekan.dogbreed.feature.breedDetails.DogBreedDetailsViewModel.*
 
 @Composable
 internal fun DogBreedDetailScreen(
-    onSubBreedClicked: (breedName:String, subBreedName: String, ) -> Unit,
+    onSubBreedClicked: (breedName: String, subBreedName: String) -> Unit,
     onBackClicked: () -> Unit,
     viewModel: DogBreedDetailsViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
     val viewState by viewModel.uiState.collectAsStateWithLifecycle()
     val appBarTitle by viewModel.appBarTitle.collectAsStateWithLifecycle()
-    var isFavorite by rememberSaveable { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
         viewModel.actionState.collect {
@@ -64,17 +66,39 @@ internal fun DogBreedDetailScreen(
         }
     }
 
+    DogBreedDetailsScreenContent(
+        appBarTitle = appBarTitle,
+        viewState = viewState,
+        onBackClicked = onBackClicked,
+        onFavoriteClicked = viewModel::onFavoriteClicked,
+        onSubBreedClicked = onSubBreedClicked
+    )
+}
+
+@Composable
+internal fun DogBreedDetailsScreenContent(
+    appBarTitle: String,
+    viewState: DogBreedDetailsUIState,
+    onBackClicked: () -> Unit,
+    onFavoriteClicked: (Boolean) -> Unit,
+    onSubBreedClicked: (String, String) -> Unit
+) {
+    var isFavorite by rememberSaveable { mutableStateOf(false) }
+
     DogAppBar(
         title = appBarTitle,
         onBackClicked = onBackClicked,
         actions = {
-            IconButton(onClick = { viewModel.onFavoriteClicked(isFavorite) }) {
+            IconButton(
+                modifier = Modifier.testTag("favoriteIconButton"),
+                onClick = { onFavoriteClicked(isFavorite) }
+            ) {
                 Icon(
                     imageVector = if (isFavorite)
                         Icons.Filled.Favorite
                     else
                         Icons.Outlined.FavoriteBorder,
-                    contentDescription = null
+                    contentDescription = if (isFavorite) "click to remove breed as favorite" else "click to add breed as favorite"
                 )
             }
         }
@@ -118,7 +142,7 @@ private fun DogBreedDetailsContent(
             contentDescription = null,
             placeholder = painterResource(id = R.drawable.ic_dog_placeholder),
             error = painterResource(id = R.drawable.ic_dog_placeholder),
-            modifier = Modifier.height(200.dp)
+            modifier = Modifier.height(200.dp).testTag("image")
         )
 
         Spacer(modifier = Modifier.height(10.dp))
@@ -128,13 +152,14 @@ private fun DogBreedDetailsContent(
             if (details.subBreeds.isEmpty()) {
                 Text(text = "No sub breeds listed")
             } else {
-                Text(text = "Breeds")
+                Text(text = "Sub breeds")
 
                 Spacer(modifier = Modifier.height(10.dp))
 
                 FlowRow(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                     repeat(details.subBreeds.size) {
                         SuggestionChip(
+                            modifier = Modifier.testTag("subbreedItem"),
                             colors = SuggestionChipDefaults.suggestionChipColors(
                                 containerColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.1f),
                                 labelColor = MaterialTheme.colorScheme.primary
@@ -146,5 +171,21 @@ private fun DogBreedDetailsContent(
                 }
             }
         }
+    }
+}
+
+@Preview
+@Composable
+fun PreviewDogBreedDetailsScreenContent() {
+    DogBreedTheme {
+        DogBreedDetailsScreenContent(
+            appBarTitle = "title",
+            viewState = DogBreedDetailsUIState.Success(
+                DogBreed("Breed", "", listOf("one", "two"), true)
+            ),
+            onBackClicked = {},
+            onFavoriteClicked = {},
+            onSubBreedClicked = { a, b -> }
+        )
     }
 }
