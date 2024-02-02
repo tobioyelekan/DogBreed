@@ -37,6 +37,9 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.3"
     }
+    packaging {
+        resources.excludes.add("META-INF/*")
+    }
 }
 
 dependencies {
@@ -54,4 +57,10 @@ dependencies {
 
     testImplementation(project(":core:testing"))
     testImplementation(kotlin("test"))
+
+    androidTestImplementation(project(":core:testing"))
+    androidTestImplementation(kotlin("test"))
+
+    androidTestImplementation(Dependencies.Testing.composeJunitUiTest)
+    debugImplementation(Dependencies.Testing.composeManifestUITest)
 }

@@ -12,12 +12,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.tobioyelekan.dogbreed.core.designsystem.components.DogBreedItem
 import com.tobioyelekan.dogbreed.core.designsystem.components.ErrorState
 import com.tobioyelekan.dogbreed.core.designsystem.components.LoadingIndicator
+import com.tobioyelekan.dogbreed.core.designsystem.theme.DogBreedTheme
 import com.tobioyelekan.dogbreed.core.model.DogBreed
 
 @Composable
@@ -27,15 +30,27 @@ internal fun FavoriteBreedScreen(
 ) {
     val viewState by viewModel.uiState.collectAsStateWithLifecycle()
 
+    FavoriteBreedScreenContent(
+        viewState = viewState,
+        onBreedClicked = onBreedClicked
+    )
+}
+
+@Composable
+internal fun FavoriteBreedScreenContent(
+    viewState: FavoriteBreedUIState,
+    onBreedClicked: (breedName: String) -> Unit
+) {
     viewState.let { state ->
         when (state) {
             FavoriteBreedUIState.Loading -> LoadingIndicator()
             is FavoriteBreedUIState.Success -> {
-                FavoriteBreedScreenContent(
+                FavoriteBreedListContent(
                     breeds = state.favoriteBreeds,
                     onBreedClicked = onBreedClicked
                 )
             }
+
             is FavoriteBreedUIState.Error -> ErrorState(text = state.message)
             FavoriteBreedUIState.Empty -> EmptyState()
         }
@@ -43,7 +58,7 @@ internal fun FavoriteBreedScreen(
 }
 
 @Composable
-private fun FavoriteBreedScreenContent(
+private fun FavoriteBreedListContent(
     breeds: List<DogBreed>,
     onBreedClicked: (breedName: String) -> Unit
 ) {
@@ -67,12 +82,27 @@ private fun FavoriteBreedScreenContent(
 @Composable
 fun EmptyState() {
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .testTag("emptyState"),
         contentAlignment = Alignment.Center
     ) {
         Text(
             text = "No favorites breed found \nClick the fav icon on dog details screen",
             style = MaterialTheme.typography.titleMedium.copy(textAlign = TextAlign.Center)
+        )
+    }
+}
+
+@Preview
+@Composable
+fun PreviewFavoriteBreedListContent() {
+    DogBreedTheme {
+        FavoriteBreedListContent(
+            breeds = listOf(
+                DogBreed("DogBreed", imageUrl = "", subBreeds = emptyList(), false)
+            ),
+            onBreedClicked = {}
         )
     }
 }
