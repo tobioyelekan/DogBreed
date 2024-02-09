@@ -1,7 +1,6 @@
 package com.tobioyelekan.dogbreed.domain.favorites
 
 import com.tobioyelekan.dogbreed.core.common.result.Result
-import com.tobioyelekan.dogbreed.data.favorites.repository.FavoriteBreedRepository
 import com.tobioyelekan.dogbreed.data.favorites.repository.FavoriteBreedRepositoryImpl
 import com.tobioyelekan.dogbreed.testing.data.TestData.dogBreeds
 import io.mockk.coEvery
