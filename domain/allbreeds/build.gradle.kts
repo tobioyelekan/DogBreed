@@ -42,4 +42,7 @@ dependencies {
     implementation(project(":data:allbreeds"))
     implementation(project(":core:common"))
     implementation(project(":core:model"))
+
+    testImplementation(project(":core:testing"))
+    testImplementation(kotlin("test"))
 }

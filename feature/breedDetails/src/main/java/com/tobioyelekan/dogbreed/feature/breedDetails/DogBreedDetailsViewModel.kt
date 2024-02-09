@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.tobioyelekan.dogbreed.core.common.result.Result
 import com.tobioyelekan.dogbreed.core.common.util.toTitleCase
 import com.tobioyelekan.dogbreed.domain.breedDetails.AddFavoriteBreedUseCase
-import com.tobioyelekan.dogbreed.domain.breedDetails.DeleteFavoriteBreedUsecase
+import com.tobioyelekan.dogbreed.domain.breedDetails.DeleteFavoriteBreedUseCase
 import com.tobioyelekan.dogbreed.domain.breedDetails.GetBreedDetailsUseCase
 import com.tobioyelekan.dogbreed.feature.breedDetails.navigation.breedNameArgs
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -28,7 +28,7 @@ class DogBreedDetailsViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     getBreedDetailsUseCase: GetBreedDetailsUseCase,
     private val addFavoriteBreedUseCase: AddFavoriteBreedUseCase,
-    private val deleteFavoriteBreedUseCase: DeleteFavoriteBreedUsecase,
+    private val deleteFavoriteBreedUseCase: DeleteFavoriteBreedUseCase,
     private val ioDispatcher: CoroutineDispatcher
 ) : ViewModel() {
 

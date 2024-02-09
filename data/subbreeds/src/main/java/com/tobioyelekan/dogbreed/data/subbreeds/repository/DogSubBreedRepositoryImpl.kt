@@ -27,11 +27,11 @@ class DogSubBreedRepositoryImpl @Inject constructor(
             }
 
             is ApiResult.Error -> {
-                Result.Failure("Something went wrong")
+                return Result.Failure("Something went wrong, please contact support and try again")
             }
 
             is ApiResult.Exception -> {
-                Result.Failure(response.throwable.message ?: "Something went wrong")
+                Result.Failure( "Please check your internet connection and try again")
             }
         }
     }

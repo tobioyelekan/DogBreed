@@ -28,7 +28,7 @@ class DogBreedsRepositoryImpl @Inject constructor(
                             breed.toEntity(breedImageResponse.data.imageUrl)
                         )
                     } else {
-                        return Result.Failure("Something went wrong")
+                        return Result.Failure("Something went wrong, please contact support and try again")
                     }
                 }
 
@@ -47,7 +47,7 @@ class DogBreedsRepositoryImpl @Inject constructor(
             }
 
             is ApiResult.Error -> {
-                Result.Failure("Something went wrong")
+                return Result.Failure("Something went wrong, please contact support and try again")
             }
 
             is ApiResult.Exception -> {
@@ -59,7 +59,7 @@ class DogBreedsRepositoryImpl @Inject constructor(
                     return Result.Success(breeds)
                 }
 
-                Result.Failure(response.throwable.message ?: "Something went wrong")
+                Result.Failure( "Please check your internet connection and try again")
             }
         }
     }
