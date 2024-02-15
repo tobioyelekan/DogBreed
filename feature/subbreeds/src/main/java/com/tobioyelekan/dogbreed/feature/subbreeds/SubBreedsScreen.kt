@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -34,13 +35,26 @@ internal fun SubBreedsScreen(
     val viewState by viewModel.uiState.collectAsStateWithLifecycle()
     val appBarTitle by viewModel.appBarTitle.collectAsStateWithLifecycle()
 
+    SubBreedScreenContent(
+        appBarTitle = appBarTitle,
+        viewState = viewState,
+        onBackClicked = onBackClicked
+    )
+}
+
+@Composable
+internal fun SubBreedScreenContent(
+    appBarTitle: String,
+    viewState: SubBreedUIState,
+    onBackClicked: () -> Unit
+) {
     DogAppBar(
         title = appBarTitle,
         onBackClicked = onBackClicked
     ) {
         viewState.let { state ->
             when (state) {
-                is SubBreedUIState.Success -> SubBreedsContent(subBreeds = state.images)
+                is SubBreedUIState.Success -> SubBreedsListContent(subBreeds = state.images)
                 SubBreedUIState.Loading -> LoadingIndicator()
                 is SubBreedUIState.Error -> ErrorState(text = state.message)
             }
@@ -49,7 +63,7 @@ internal fun SubBreedsScreen(
 }
 
 @Composable
-private fun SubBreedsContent(
+private fun SubBreedsListContent(
     subBreeds: List<SubBreedImage>
 ) {
     LazyVerticalStaggeredGrid(
@@ -72,8 +86,8 @@ private fun SubBreedsContent(
                 error = painterResource(id = R.drawable.ic_dog_placeholder),
                 modifier = Modifier
                     .fillMaxHeight()
-
                     .clip(RoundedCornerShape(10.dp))
+                    .testTag("subBreedImageItem")
             )
         }
     }
