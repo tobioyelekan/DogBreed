@@ -7,14 +7,12 @@ import com.tobioyelekan.dogbreed.core.common.util.toTitleCase
 import com.tobioyelekan.dogbreed.domain.subbreeds.GetSubBreedImageUseCase
 import com.tobioyelekan.dogbreed.feature.subbreeds.navigation.breedNameArgs
 import com.tobioyelekan.dogbreed.feature.subbreeds.navigation.subBreedNameArgs
-import com.tobioyelekan.dogbreed.testing.data.TestData
 import com.tobioyelekan.dogbreed.testing.data.TestData.subBreedImages
 import com.tobioyelekan.dogbreed.testing.util.MainDispatcherRule
 import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Rule
