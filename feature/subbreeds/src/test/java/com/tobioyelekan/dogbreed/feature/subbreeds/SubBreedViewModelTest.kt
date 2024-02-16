@@ -7,11 +7,14 @@ import com.tobioyelekan.dogbreed.core.common.util.toTitleCase
 import com.tobioyelekan.dogbreed.domain.subbreeds.GetSubBreedImageUseCase
 import com.tobioyelekan.dogbreed.feature.subbreeds.navigation.breedNameArgs
 import com.tobioyelekan.dogbreed.feature.subbreeds.navigation.subBreedNameArgs
+import com.tobioyelekan.dogbreed.testing.data.TestData
 import com.tobioyelekan.dogbreed.testing.data.TestData.subBreedImages
 import com.tobioyelekan.dogbreed.testing.util.MainDispatcherRule
 import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockk
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Rule
@@ -34,9 +37,15 @@ class SubBreedViewModelTest {
     }
 
     @Test
-    fun stateIsInitiallyLoading() {
+    fun stateIsInitiallyLoading() = runTest {
+        coEvery { useCase.invoke(any(), any()) } coAnswers {
+            delay(1000)
+            Result.Success(subBreedImages)
+        }
+
         viewModel = SubBreedViewModel(savedStateHandle, useCase)
-        assertEquals(SubBreedUIState.Loading, viewModel.uiState.value)
+
+        assert(viewModel.uiState.value is SubBreedUIState.Loading)
     }
 
     @Test

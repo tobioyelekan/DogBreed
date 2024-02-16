@@ -7,6 +7,7 @@ import com.tobioyelekan.dogbreed.testing.util.MainDispatcherRule
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
@@ -24,12 +25,16 @@ class AllBreedsViewModelTest {
 
     private lateinit var viewModel: AllBreedsViewModel
 
-//    @Test
-//    fun stateIsInitiallyLoading() {
-//        coEvery { useCase.invoke() } returns Result.Success(dogBreeds)
-//        viewModel = AllBreedsViewModel(useCase, coroutineTestDispatcher)
-//        assert(viewModel.uiState.value is AllBreedsUiState.Loading)
-//    }
+    @Test
+    fun stateIsInitiallyLoading() = runTest{
+        coEvery { useCase.invoke() } coAnswers {
+            delay(1000)
+            Result.Success(dogBreeds)
+        }
+        viewModel = AllBreedsViewModel(useCase, coroutineTestDispatcher)
+
+        assert(viewModel.uiState.value is AllBreedsUiState.Loading)
+    }
 
     @Test
     fun `emit success when usecase returns list of breeds`() = runTest {
@@ -38,7 +43,7 @@ class AllBreedsViewModelTest {
         viewModel = AllBreedsViewModel(useCase, coroutineTestDispatcher)
 
         assert(viewModel.uiState.value is AllBreedsUiState.Success)
-        assertEquals((viewModel.uiState.value as AllBreedsUiState.Success).dogBreeds, dogBreeds)
+        assertEquals(dogBreeds, (viewModel.uiState.value as AllBreedsUiState.Success).dogBreeds,)
     }
 
     @Test
