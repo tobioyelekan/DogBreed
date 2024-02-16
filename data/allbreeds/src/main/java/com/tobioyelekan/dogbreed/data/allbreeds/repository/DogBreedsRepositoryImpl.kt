@@ -8,7 +8,7 @@ import com.tobioyelekan.dogbreed.core.common.result.Result
 import com.tobioyelekan.dogbreed.core.database.entity.toDomainModel
 import com.tobioyelekan.dogbreed.core.model.DogBreed
 import com.tobioyelekan.dogbreed.data.allbreeds.mapper.toEntity
-import com.tobioyelekan.dogbreed.data.allbreeds.util.mergeLists
+import com.tobioyelekan.dogbreed.data.allbreeds.util.mergeEntities
 import javax.inject.Inject
 
 class DogBreedsRepositoryImpl @Inject constructor(
@@ -37,7 +37,7 @@ class DogBreedsRepositoryImpl @Inject constructor(
                 val entities = if (cachedFavoritesBreeds.isEmpty())
                     dogBreedEntities
                 else
-                    mergeLists(dogBreedEntities, cachedFavoritesBreeds)
+                    mergeEntities(dogBreedEntities, cachedFavoritesBreeds)
 
                 dogBreedDao.nukeTable()
                 dogBreedDao.saveBreeds(entities)

@@ -1,4 +1,4 @@
-package com.tobioyelekan.dogbreed.data.allbreeds
+package com.tobioyelekan.dogbreed.data.allbreeds.repository
 
 import com.tobioyelekan.dogbreed.core.common.result.Result
 import com.tobioyelekan.dogbreed.core.database.dao.DogBreedDao
@@ -9,8 +9,7 @@ import com.tobioyelekan.dogbreed.core.network.adapter.ApiResult
 import com.tobioyelekan.dogbreed.core.network.model.BreedImageApiModel
 import com.tobioyelekan.dogbreed.core.network.model.DogBreedsApiModel
 import com.tobioyelekan.dogbreed.data.allbreeds.mapper.toEntity
-import com.tobioyelekan.dogbreed.data.allbreeds.repository.DogBreedsRepositoryImpl
-import com.tobioyelekan.dogbreed.data.allbreeds.util.mergeLists
+import com.tobioyelekan.dogbreed.data.allbreeds.util.mergeEntities
 import com.tobioyelekan.dogbreed.testing.data.TestData.dogBreedApiResponseTestData
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -85,7 +84,7 @@ class DogBreedsRepositoryImplTest {
         val actual = subject.getAllBreeds()
 
         //then
-        val expectedDogBreedDomains = mergeLists(dogBreedEntities, cachedEntities).map { it.toDomainModel() }
+        val expectedDogBreedDomains = mergeEntities(dogBreedEntities, cachedEntities).map { it.toDomainModel() }
         assertEquals(Result.Success(expectedDogBreedDomains), actual)
     }
 
