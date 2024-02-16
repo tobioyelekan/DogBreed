@@ -22,6 +22,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: 17
+          distribution: 'zulu'
 
       - name: Run Debug Tests
         run: ./gradlew testDebugUnitTest --continue
