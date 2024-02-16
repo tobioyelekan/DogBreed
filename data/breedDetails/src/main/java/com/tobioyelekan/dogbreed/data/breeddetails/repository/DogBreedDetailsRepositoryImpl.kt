@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.flowOf
 import com.tobioyelekan.dogbreed.core.common.result.Result
 import com.tobioyelekan.dogbreed.core.common.result.mapToSuccess
 import com.tobioyelekan.dogbreed.core.database.entity.toDomainModel
+import kotlinx.coroutines.flow.filterNotNull
 import javax.inject.Inject
 
 class DogBreedDetailsRepositoryImpl @Inject constructor(
@@ -16,7 +17,8 @@ class DogBreedDetailsRepositoryImpl @Inject constructor(
     override fun getBreedDetails(breedName: String): Flow<Result<DogBreed>> {
         return try {
             val breed = dogBreedDao.getBreed(breedName)
-            breed.mapToSuccess { it.toDomainModel() }
+            breed.filterNotNull()
+                .mapToSuccess { it.toDomainModel() }
         } catch (e: SQLiteException) {
             flowOf(Result.Failure("something went wrong, please try again"))
         }
