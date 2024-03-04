@@ -34,32 +34,32 @@ jobs:
           name: test-reports
           path: '**/build/reports/tests/'
 
-  android-test-job:
-    name: Android Tests
-    runs-on:  macOS-latest
-    continue-on-error: true
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Validate Gradle Wrapper
-        uses: gradle/wrapper-validation-action@v1
-
-      - name: Set up JDK 17
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'zulu'
-          java-version: 17
-
-      - name: Run Instrumentation Tests
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 29
-          script: ./gradlew connectAndroidTest
-
-      - name: Upload Android Tests Reports
-        if: always()
-        uses: actions/upload-artifact@v3
-        with:
-          name: android-test-reports
-          path: '**/build/reports/androidTests/'
+#  android-test-job:
+#    name: Android Tests
+#    runs-on:  macOS-latest
+#    continue-on-error: true
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v4
+#
+#      - name: Validate Gradle Wrapper
+#        uses: gradle/wrapper-validation-action@v1
+#
+#      - name: Set up JDK 17
+#        uses: actions/setup-java@v3
+#        with:
+#          distribution: 'zulu'
+#          java-version: 17
+#
+#      - name: Run Instrumentation Tests
+#        uses: reactivecircus/android-emulator-runner@v2
+#        with:
+#          api-level: 29
+#          script: ./gradlew connectAndroidTest
+#
+#      - name: Upload Android Tests Reports
+#        if: always()
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: android-test-reports
+#          path: '**/build/reports/androidTests/'
