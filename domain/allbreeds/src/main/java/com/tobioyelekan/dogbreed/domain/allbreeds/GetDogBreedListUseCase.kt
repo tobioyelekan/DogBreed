@@ -1,6 +1,5 @@
 package com.tobioyelekan.dogbreed.domain.allbreeds
 
-import com.tobioyelekan.dogbreed.core.common.result.Result
 import com.tobioyelekan.dogbreed.core.model.DogBreed
 import com.tobioyelekan.dogbreed.data.allbreeds.repository.DogBreedsRepository
 import javax.inject.Inject

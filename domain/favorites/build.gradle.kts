@@ -38,7 +38,7 @@ dependencies {
     implementation(libs.hilt.core)
     ksp(libs.hilt.compiler)
 
-    implementation(project(":data:favorites"))
+    implementation(project(":data:breedDetails"))
     implementation(project(":core:common"))
     implementation(project(":core:model"))
 

@@ -9,7 +9,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import com.tobioyelekan.dogbreed.core.common.result.Result
 import kotlinx.coroutines.CoroutineDispatcher
 
 @HiltViewModel
@@ -27,10 +26,13 @@ class AllBreedsViewModel @Inject constructor(
 
     private fun getDogBreeds() {
         viewModelScope.launch(ioDispatcher) {
-            when (val result = getDogBreedListUseCase()) {
-                is Result.Success -> _uiState.update { AllBreedsUiState.Success(result.value) }
-                is Result.Failure -> _uiState.update { AllBreedsUiState.Error(result.errorMessage) }
-            }
+            getDogBreedListUseCase()
+                .onSuccess { value ->
+                    _uiState.update { AllBreedsUiState.Success(value) }
+                }
+                .onFailure {
+                    _uiState.update { AllBreedsUiState.Error("something went wrong") }
+                }
         }
     }
 }

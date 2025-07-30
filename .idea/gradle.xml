@@ -21,7 +21,6 @@
             <option value="$PROJECT_DIR$/data" />
             <option value="$PROJECT_DIR$/data/allbreeds" />
             <option value="$PROJECT_DIR$/data/breedDetails" />
-            <option value="$PROJECT_DIR$/data/favorites" />
             <option value="$PROJECT_DIR$/data/subbreeds" />
             <option value="$PROJECT_DIR$/domain" />
             <option value="$PROJECT_DIR$/domain/allbreeds" />

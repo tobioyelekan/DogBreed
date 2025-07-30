@@ -5,8 +5,7 @@ import com.tobioyelekan.dogbreed.core.model.DogBreed
 
 @Immutable
 sealed class FavoriteBreedUIState {
-    object Loading : FavoriteBreedUIState()
-    object Empty : FavoriteBreedUIState()
+    data object Loading : FavoriteBreedUIState()
     class Success(val favoriteBreeds: List<DogBreed>) : FavoriteBreedUIState()
     class Error(val message: String) : FavoriteBreedUIState()
 }

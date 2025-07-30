@@ -1,45 +1,39 @@
 package com.tobioyelekan.dogbreed.data.breeddetails.repository
 
-import android.database.sqlite.SQLiteException
 import com.tobioyelekan.dogbreed.core.database.dao.DogBreedDao
 import com.tobioyelekan.dogbreed.core.model.DogBreed
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
-import com.tobioyelekan.dogbreed.core.common.result.Result
-import com.tobioyelekan.dogbreed.core.common.result.mapToSuccess
 import com.tobioyelekan.dogbreed.core.database.entity.toDomainModel
-import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class DogBreedDetailsRepositoryImpl @Inject constructor(
     private val dogBreedDao: DogBreedDao
 ) : DogBreedDetailRepository {
     override fun getBreedDetails(breedName: String): Flow<Result<DogBreed>> {
-        return try {
-            val breed = dogBreedDao.getBreed(breedName)
-            breed.filterNotNull()
-                .mapToSuccess { it.toDomainModel() }
-        } catch (e: SQLiteException) {
-            flowOf(Result.Failure("something went wrong, please try again"))
-        }
+        return dogBreedDao.getBreed(breedName)
+            .map { runCatching { it.toDomainModel() } }
+            .catch { emit(Result.failure(it)) }
+    }
+
+    override fun getFavoriteBreeds(): Flow<Result<List<DogBreed>>> {
+        return dogBreedDao.getFavoriteBreeds()
+            .map { entities->
+                runCatching { entities.map { it.toDomainModel() } }
+            }
+            .catch { emit(Result.failure(it)) }
     }
 
     override suspend fun addFavoriteBreed(name: String): Result<Unit> {
-        return try {
+        return runCatching {
             dogBreedDao.updateBreed(name, true)
-            Result.Success(Unit)
-        } catch (e: SQLiteException) {
-            Result.Failure("something went wrong, please try again")
         }
     }
 
     override suspend fun removeFavoriteBreed(name: String): Result<Unit> {
-        return try {
+        return runCatching {
             dogBreedDao.updateBreed(name, false)
-            Result.Success(Unit)
-        } catch (e: SQLiteException) {
-            Result.Failure("something went wrong, please try again")
         }
     }
-
 }

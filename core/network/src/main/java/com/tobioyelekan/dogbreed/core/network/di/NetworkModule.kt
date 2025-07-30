@@ -1,7 +1,6 @@
 package com.tobioyelekan.dogbreed.core.network.di
 
 import com.tobioyelekan.dogbreed.core.network.DogBreedApiService
-import com.tobioyelekan.dogbreed.core.network.adapter.ApiResultAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -48,7 +47,6 @@ object NetworkModule {
             .addConverterFactory(
                 json.asConverterFactory("application/json".toMediaType())
             )
-            .addCallAdapterFactory(ApiResultAdapterFactory())
             .build()
     }
 
