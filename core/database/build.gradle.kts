@@ -38,18 +38,18 @@ android {
 }
 
 dependencies {
-    implementation(Dependencies.Room.roomCore)
-    ksp(Dependencies.Room.roomCompiler)
+    implementation(libs.room.core)
+    ksp(libs.room.compiler)
 
-    implementation(Dependencies.Hilt.hiltCore)
-    ksp(Dependencies.Hilt.hiltCompiler)
+    implementation(libs.hilt.core)
+    ksp(libs.hilt.compiler)
 
     implementation(project(":core:model"))
 
     androidTestImplementation(project(":core:testing"))
     androidTestImplementation(kotlin("test"))
 
-    androidTestImplementation(Dependencies.Room.roomTesting)
-    androidTestImplementation(Dependencies.Testing.androidxTestCore)
-    androidTestImplementation(Dependencies.Testing.androidxTestRunner)
+    androidTestImplementation(libs.room.testing)
+    androidTestImplementation(libs.androidx.test.core)
+    androidTestImplementation(libs.androidx.test.runner)
 }

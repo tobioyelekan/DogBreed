@@ -35,9 +35,8 @@ android {
 }
 
 dependencies {
-    implementation(Dependencies.Hilt.hiltCore)
-    ksp(Dependencies.Hilt.hiltCompiler)
-    implementation(Dependencies.Hilt.hiltAndroid)
+    implementation(libs.hilt.core)
+    ksp(libs.hilt.compiler)
 
     implementation(project(":core:database"))
     implementation(project(":core:common"))

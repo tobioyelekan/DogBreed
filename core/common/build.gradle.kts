@@ -35,8 +35,8 @@ android {
 }
 
 dependencies {
-    implementation(Dependencies.Hilt.hiltCore)
-    ksp(Dependencies.Hilt.hiltCompiler)
+    implementation(libs.hilt.core)
+    ksp(libs.hilt.compiler)
 
     testImplementation(project(":core:testing"))
     testImplementation(kotlin("test"))

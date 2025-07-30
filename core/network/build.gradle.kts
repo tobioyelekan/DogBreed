@@ -43,16 +43,15 @@ android {
 }
 
 dependencies {
-    implementation(Dependencies.Retrofit.retrofitCore)
-    implementation(Dependencies.Retrofit.retrofitKotlinSerialization)
-    implementation(Dependencies.Retrofit.retrofitScalarsConverter)
+    implementation(libs.retrofit.core)
+    implementation(libs.retrofit.kotlin.serialization)
+    implementation(libs.retrofit.scalars)
 
-    implementation(Dependencies.Serialization.kotlinSerialization)
+    implementation(libs.kotlin.serialization)
 
-    implementation(Dependencies.Logging.interceptorLogging)
-    implementation(Dependencies.Logging.timber)
+    implementation(libs.logging.interceptor)
+    implementation(libs.timber)
 
-    implementation(Dependencies.Hilt.hiltCore)
-    implementation(Dependencies.Hilt.hiltAndroid)
-    ksp(Dependencies.Hilt.hiltCompiler)
+    implementation(libs.hilt.core)
+    ksp(libs.hilt.compiler)
 }

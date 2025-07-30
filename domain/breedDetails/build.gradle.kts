@@ -35,9 +35,8 @@ android {
 }
 
 dependencies {
-    implementation(Dependencies.Hilt.hiltCore)
-    ksp(Dependencies.Hilt.hiltCompiler)
-    implementation(Dependencies.Hilt.hiltAndroid)
+    implementation(libs.hilt.core)
+    ksp(libs.hilt.compiler)
 
     implementation(project(":data:breedDetails"))
     implementation(project(":core:common"))

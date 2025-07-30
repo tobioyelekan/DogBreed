@@ -9,7 +9,7 @@ import retrofit2.http.Path
 
 interface DogBreedApiService {
     @GET("breeds/list/all")
-    suspend fun getAllDogBreeds(): ApiResult<DogBreedsApiModel>
+    suspend fun getAllDogBreeds(): DogBreedsApiModel
 
     @GET("breed/{breedName}/images/random")
     suspend fun getBreedRandomImage(

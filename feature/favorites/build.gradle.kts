@@ -43,12 +43,11 @@ android {
 }
 
 dependencies {
-    implementation(Dependencies.Hilt.hiltCompose)
-    implementation(Dependencies.Hilt.hiltCore)
-    ksp(Dependencies.Hilt.hiltCompiler)
-    implementation(Dependencies.Hilt.hiltAndroid)
+    implementation(libs.hilt.compose)
+    implementation(libs.hilt.core)
+    ksp(libs.hilt.compiler)
 
-    implementation(Dependencies.Concurrency.kotlinCoroutine)
+    implementation(libs.kotlin.coroutine)
 
     implementation(project(":domain:favorites"))
     implementation(project(":core:designsystem"))
@@ -61,6 +60,6 @@ dependencies {
     androidTestImplementation(project(":core:testing"))
     androidTestImplementation(kotlin("test"))
 
-    androidTestImplementation(Dependencies.Testing.composeJunitUiTest)
-    debugImplementation(Dependencies.Testing.composeManifestUITest)
+    androidTestImplementation(libs.compose.junit.ui.test)
+    debugImplementation(libs.compose.test.manifest)
 }
