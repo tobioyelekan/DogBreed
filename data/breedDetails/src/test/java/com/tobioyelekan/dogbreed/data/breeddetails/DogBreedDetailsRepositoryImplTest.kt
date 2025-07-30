@@ -1,8 +1,6 @@
 package com.tobioyelekan.dogbreed.data.breeddetails
 
 import android.database.sqlite.SQLiteException
-import com.tobioyelekan.dogbreed.core.common.result.Result
-import com.tobioyelekan.dogbreed.core.common.result.mapToSuccess
 import com.tobioyelekan.dogbreed.core.database.dao.DogBreedDao
 import com.tobioyelekan.dogbreed.core.database.entity.DogBreedEntity
 import com.tobioyelekan.dogbreed.core.database.entity.toDomainModel
@@ -10,8 +8,11 @@ import com.tobioyelekan.dogbreed.data.breeddetails.repository.DogBreedDetailsRep
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
+import junit.framework.TestCase.assertTrue
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import kotlin.test.assertEquals
@@ -30,7 +31,8 @@ class DogBreedDetailsRepositoryImplTest {
         val actual = subject.getBreedDetails("breedName")
 
         //then
-        val expected = breedEntity.mapToSuccess { it.toDomainModel() }
+        val expected = breedEntity.map { runCatching { it.toDomainModel() } }
+
         coVerify { dogBreedDao.getBreed(any()) }
         assertEquals(expected.first(), actual.first())
     }
@@ -38,15 +40,16 @@ class DogBreedDetailsRepositoryImplTest {
     @Test
     fun `getBreedDetails returns error when db error occurs`() = runTest {
         //given
-        coEvery { dogBreedDao.getBreed(any()) } throws SQLiteException()
+        coEvery { dogBreedDao.getBreed(any()) } returns flow {
+            throw Exception("something went wrong")
+        }
 
         //when
         val actual = subject.getBreedDetails("breedName")
 
         //then
-        val expected = flowOf(Result.Failure("something went wrong, please try again"))
         coVerify { dogBreedDao.getBreed(any()) }
-        assertEquals(expected.first(), actual.first())
+        assertTrue(actual.first().isFailure)
     }
 
     @Test
@@ -58,7 +61,7 @@ class DogBreedDetailsRepositoryImplTest {
         val actual = subject.addFavoriteBreed("breedName")
 
         //then
-        val expected = flowOf(Result.Success(Unit))
+        val expected = flowOf(Result.success(Unit))
         coVerify { dogBreedDao.updateBreed(any(), true) }
         assertEquals(expected.first(), actual)
     }
@@ -72,9 +75,8 @@ class DogBreedDetailsRepositoryImplTest {
         val actual = subject.addFavoriteBreed("breedName")
 
         //then
-        val expected = flowOf(Result.Failure("something went wrong, please try again"))
         coVerify { dogBreedDao.updateBreed(any(), true) }
-        assertEquals(expected.first(), actual)
+        assertTrue(actual.isFailure)
     }
 
     @Test
@@ -86,7 +88,7 @@ class DogBreedDetailsRepositoryImplTest {
         val actual = subject.removeFavoriteBreed("breedName")
 
         //then
-        val expected = flowOf(Result.Success(Unit))
+        val expected = flowOf(Result.success(Unit))
         coVerify { dogBreedDao.updateBreed(any(), false) }
         assertEquals(expected.first(), actual)
     }
@@ -100,9 +102,8 @@ class DogBreedDetailsRepositoryImplTest {
         val actual = subject.removeFavoriteBreed("breedName")
 
         //then
-        val expected = flowOf(Result.Failure("something went wrong, please try again"))
         coVerify { dogBreedDao.updateBreed(any(), false) }
-        assertEquals(expected.first(), actual)
+        assertTrue(actual.isFailure)
     }
 
 

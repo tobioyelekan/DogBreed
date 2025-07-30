@@ -2,7 +2,6 @@ package com.tobioyelekan.dogbreed.feature.breedDetails
 
 import androidx.lifecycle.SavedStateHandle
 import app.cash.turbine.test
-import com.tobioyelekan.dogbreed.core.common.result.Result
 import com.tobioyelekan.dogbreed.core.common.util.toTitleCase
 import com.tobioyelekan.dogbreed.domain.breedDetails.AddFavoriteBreedUseCase
 import com.tobioyelekan.dogbreed.domain.breedDetails.DeleteFavoriteBreedUseCase
@@ -58,7 +57,7 @@ class DogBreedDetailsViewModelTest {
 
     @Test
     fun `emit success when usecase returns success`() = runTest {
-        coEvery { getBreedDetailsUseCase.invoke(any()) } returns flowOf(Result.Success(dogBreeds[0]))
+        coEvery { getBreedDetailsUseCase.invoke(any()) } returns flowOf(Result.success(dogBreeds[0]))
 
         initializeViewModel()
 
@@ -73,7 +72,8 @@ class DogBreedDetailsViewModelTest {
 
     @Test
     fun `emit error when usecase returns error`() = runTest {
-        coEvery { getBreedDetailsUseCase.invoke(any()) } returns flowOf(Result.Failure("Something went wrong"))
+        coEvery { getBreedDetailsUseCase.invoke(any()) } returns
+                flowOf(Result.failure(Exception("Something went wrong")))
 
         initializeViewModel()
 
@@ -88,7 +88,7 @@ class DogBreedDetailsViewModelTest {
 
     @Test
     fun `on add favorite emits success message`() = runTest {
-        coEvery { addFavoriteBreedUseCase.invoke(any()) } returns Result.Success(Unit)
+        coEvery { addFavoriteBreedUseCase.invoke(any()) } returns Result.success(Unit)
 
         initializeViewModel()
 
@@ -104,7 +104,7 @@ class DogBreedDetailsViewModelTest {
 
     @Test
     fun `on remove favorite emits success`() = runTest {
-        coEvery { deleteFavoriteBreedUseCase.invoke(any()) } returns Result.Success(Unit)
+        coEvery { deleteFavoriteBreedUseCase.invoke(any()) } returns Result.success(Unit)
 
         initializeViewModel()
 
@@ -120,8 +120,10 @@ class DogBreedDetailsViewModelTest {
 
     @Test
     fun `emits error adding or removing favorite breed`() = runTest {
-        coEvery { addFavoriteBreedUseCase.invoke(any()) } returns Result.Failure("Something went wrong")
-        coEvery { deleteFavoriteBreedUseCase.invoke(any()) } returns Result.Failure("Something went wrong")
+        coEvery { addFavoriteBreedUseCase.invoke(any()) } returns
+                Result.failure(Exception("Something went wrong"))
+        coEvery { deleteFavoriteBreedUseCase.invoke(any()) } returns
+                Result.failure(Exception("Something went wrong"))
 
         initializeViewModel()
 

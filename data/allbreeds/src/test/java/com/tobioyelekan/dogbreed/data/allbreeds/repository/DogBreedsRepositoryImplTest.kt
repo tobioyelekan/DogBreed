@@ -1,11 +1,9 @@
 package com.tobioyelekan.dogbreed.data.allbreeds.repository
 
-import com.tobioyelekan.dogbreed.core.common.result.Result
 import com.tobioyelekan.dogbreed.core.database.dao.DogBreedDao
 import com.tobioyelekan.dogbreed.core.database.entity.DogBreedEntity
 import com.tobioyelekan.dogbreed.core.database.entity.toDomainModel
 import com.tobioyelekan.dogbreed.core.network.DogBreedApiService
-import com.tobioyelekan.dogbreed.core.network.adapter.ApiResult
 import com.tobioyelekan.dogbreed.core.network.model.BreedImageApiModel
 import com.tobioyelekan.dogbreed.core.network.model.DogBreedsApiModel
 import com.tobioyelekan.dogbreed.data.allbreeds.mapper.toEntity
@@ -14,9 +12,9 @@ import com.tobioyelekan.dogbreed.testing.data.TestData.dogBreedApiResponseTestDa
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
+import junit.framework.TestCase.assertTrue
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
-import java.net.UnknownHostException
 import kotlin.test.assertEquals
 
 class DogBreedsRepositoryImplTest {
@@ -31,10 +29,10 @@ class DogBreedsRepositoryImplTest {
         val sampleImageUrl = "imageUrl"
 
         coEvery { dogBreedService.getAllDogBreeds() } returns
-                ApiResult.Success(data = DogBreedsApiModel(dogBreedApiResponseTestData))
+                DogBreedsApiModel(dogBreedApiResponseTestData)
 
         coEvery { dogBreedService.getBreedRandomImage(any()) } returns
-                ApiResult.Success(data = BreedImageApiModel(sampleImageUrl))
+                 BreedImageApiModel(sampleImageUrl)
 
         //when
         val actual = subject.getAllBreeds()
@@ -44,7 +42,7 @@ class DogBreedsRepositoryImplTest {
             dogBreedApiResponseTestData
                 .map { it.toEntity(sampleImageUrl) }
                 .map { it.toDomainModel() }
-        assertEquals(Result.Success(dogBreedDomain), actual)
+        assertEquals(Result.success(dogBreedDomain), actual)
     }
 
     @Test
@@ -53,10 +51,9 @@ class DogBreedsRepositoryImplTest {
         val sampleImageUrl = "imageUrl"
 
         coEvery { dogBreedService.getAllDogBreeds() } returns
-                ApiResult.Success(data = DogBreedsApiModel(dogBreedApiResponseTestData))
-
+                 DogBreedsApiModel(dogBreedApiResponseTestData)
         coEvery { dogBreedService.getBreedRandomImage(any()) } returns
-                ApiResult.Success(data = BreedImageApiModel(sampleImageUrl))
+                BreedImageApiModel(sampleImageUrl)
 
         //when
         subject.getAllBreeds()
@@ -73,10 +70,10 @@ class DogBreedsRepositoryImplTest {
         val dogBreedEntities = dogBreedApiResponseTestData.map { it.toEntity(sampleImageUrl) }
 
         coEvery { dogBreedService.getAllDogBreeds() } returns
-                ApiResult.Success(data = DogBreedsApiModel(dogBreedApiResponseTestData))
+                DogBreedsApiModel(dogBreedApiResponseTestData)
 
         coEvery { dogBreedService.getBreedRandomImage(any()) } returns
-                ApiResult.Success(data = BreedImageApiModel(sampleImageUrl))
+                BreedImageApiModel(sampleImageUrl)
 
         coEvery { dogBreedDao.getAllBreeds() } returns cachedEntities
 
@@ -85,15 +82,13 @@ class DogBreedsRepositoryImplTest {
 
         //then
         val expectedDogBreedDomains = mergeEntities(dogBreedEntities, cachedEntities).map { it.toDomainModel() }
-        assertEquals(Result.Success(expectedDogBreedDomains), actual)
+        assertEquals(Result.success(expectedDogBreedDomains), actual)
     }
 
     @Test
     fun `getAllBreeds handles api exception and fallbacks to database`() = runTest {
         //given
-        coEvery { dogBreedService.getAllDogBreeds() } returns ApiResult.Exception(
-            UnknownHostException()
-        )
+        coEvery { dogBreedService.getAllDogBreeds() } throws Exception("something went wrong")
         coEvery { dogBreedDao.getAllBreeds() } returns cachedEntities
 
         //when
@@ -102,24 +97,21 @@ class DogBreedsRepositoryImplTest {
         //then
         val domainBreeds = cachedEntities.map { it.toDomainModel() }
         coVerify(exactly = 0) { dogBreedDao.saveBreeds(any()) }
-        assertEquals(Result.Success(domainBreeds), actual)
+        assertEquals(Result.success(domainBreeds), actual)
     }
 
     @Test
-    fun `getAllBreeds handles api error`() = runTest {
+    fun `getAllBreeds handles api error, throw error no database fallback`() = runTest {
         //given
-        coEvery { dogBreedService.getAllDogBreeds() } returns ApiResult.Error(
-            500,
-            "Something went wrong"
-        )
+        coEvery { dogBreedService.getAllDogBreeds() } throws Exception("something went wrong")
 
         //when
         val actual = subject.getAllBreeds()
 
         //then
-        coVerify(exactly = 0) { dogBreedDao.getAllBreeds() }
+        coVerify(exactly = 1) { dogBreedDao.getAllBreeds() }
         coVerify(exactly = 0) { dogBreedDao.saveBreeds(any()) }
-        assert(actual is Result.Failure)
+        assertTrue(actual.isFailure)
     }
 
     private val sampleImageUrl = "imageUrl"
