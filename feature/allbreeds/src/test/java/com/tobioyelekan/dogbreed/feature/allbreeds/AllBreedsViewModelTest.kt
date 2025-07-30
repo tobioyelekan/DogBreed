@@ -1,6 +1,5 @@
 package com.tobioyelekan.dogbreed.feature.allbreeds
 
-import com.tobioyelekan.dogbreed.core.common.result.Result
 import com.tobioyelekan.dogbreed.domain.allbreeds.GetDogBreedListUseCase
 import com.tobioyelekan.dogbreed.testing.data.TestData.dogBreeds
 import com.tobioyelekan.dogbreed.testing.util.MainDispatcherRule
@@ -29,7 +28,7 @@ class AllBreedsViewModelTest {
     fun stateIsInitiallyLoading() = runTest{
         coEvery { useCase.invoke() } coAnswers {
             delay(1000)
-            Result.Success(dogBreeds)
+            Result.success(dogBreeds)
         }
         viewModel = AllBreedsViewModel(useCase, coroutineTestDispatcher)
 
@@ -38,7 +37,7 @@ class AllBreedsViewModelTest {
 
     @Test
     fun `emit success when usecase returns list of breeds`() = runTest {
-        coEvery { useCase.invoke() } returns Result.Success(dogBreeds)
+        coEvery { useCase.invoke() } returns Result.success(dogBreeds)
 
         viewModel = AllBreedsViewModel(useCase, coroutineTestDispatcher)
 
@@ -48,7 +47,7 @@ class AllBreedsViewModelTest {
 
     @Test
     fun `emit error when usecase returns error`() = runTest {
-        coEvery { useCase.invoke() } returns Result.Failure("Something went wrong")
+        coEvery { useCase.invoke() } returns Result.failure(Exception("Something went wrong"))
 
         viewModel = AllBreedsViewModel(useCase, coroutineTestDispatcher)
 

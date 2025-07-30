@@ -2,7 +2,6 @@ package com.tobioyelekan.dogbreed.feature.subbreeds
 
 import androidx.lifecycle.SavedStateHandle
 import app.cash.turbine.test
-import com.tobioyelekan.dogbreed.core.common.result.Result
 import com.tobioyelekan.dogbreed.core.common.util.toTitleCase
 import com.tobioyelekan.dogbreed.domain.subbreeds.GetSubBreedImageUseCase
 import com.tobioyelekan.dogbreed.feature.subbreeds.navigation.breedNameArgs
@@ -38,7 +37,7 @@ class SubBreedViewModelTest {
     fun stateIsInitiallyLoading() = runTest {
         coEvery { useCase.invoke(any(), any()) } coAnswers {
             delay(1000)
-            Result.Success(subBreedImages)
+            Result.success(subBreedImages)
         }
 
         viewModel = SubBreedViewModel(savedStateHandle, useCase)
@@ -49,7 +48,7 @@ class SubBreedViewModelTest {
     @Test
     fun `emit value from savedStateHandle as app bar title when viewmodel is launched`() =
         runTest {
-            coEvery { useCase.invoke(any(), any()) } returns Result.Success(subBreedImages)
+            coEvery { useCase.invoke(any(), any()) } returns Result.success(subBreedImages)
             viewModel = SubBreedViewModel(savedStateHandle, useCase)
 
             viewModel.appBarTitle.test {
@@ -61,7 +60,7 @@ class SubBreedViewModelTest {
     @Test
     fun `emit subbreed images when usecase returns success`() =
         runTest {
-            coEvery { useCase.invoke(any(), any()) } returns Result.Success(subBreedImages)
+            coEvery { useCase.invoke(any(), any()) } returns Result.success(subBreedImages)
             viewModel = SubBreedViewModel(savedStateHandle, useCase)
 
             viewModel.uiState.test {
@@ -74,13 +73,14 @@ class SubBreedViewModelTest {
     @Test
     fun `emit error when usecase returns success`() =
         runTest {
-            coEvery { useCase.invoke(any(), any()) } returns Result.Failure("Something went wrong")
+            coEvery { useCase.invoke(any(), any()) } returns
+                    Result.failure(Exception("something went wrong"))
             viewModel = SubBreedViewModel(savedStateHandle, useCase)
 
             viewModel.uiState.test {
                 val item = awaitItem()
                 assert(viewModel.uiState.value is SubBreedUIState.Error)
-                assertEquals("Something went wrong", (item as SubBreedUIState.Error).message)
+                assertEquals("something went wrong", (item as SubBreedUIState.Error).message)
             }
         }
 }

@@ -52,7 +52,6 @@ internal fun FavoriteBreedScreenContent(
             }
 
             is FavoriteBreedUIState.Error -> ErrorState(text = state.message)
-            FavoriteBreedUIState.Empty -> EmptyState()
         }
     }
 }
@@ -62,21 +61,24 @@ private fun FavoriteBreedListContent(
     breeds: List<DogBreed>,
     onBreedClicked: (breedName: String) -> Unit
 ) {
-    Box(modifier = Modifier.fillMaxSize()) {
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(2),
-            state = rememberLazyGridState()
-        ) {
-            items(items = breeds, key = { it.name }) {
-                DogBreedItem(
-                    breedName = it.name,
-                    imgUrl = it.imageUrl
-                ) {
-                    onBreedClicked(it.name)
+    if (breeds.isEmpty())
+        EmptyState()
+    else
+        Box(modifier = Modifier.fillMaxSize()) {
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(2),
+                state = rememberLazyGridState()
+            ) {
+                items(items = breeds, key = { it.name }) {
+                    DogBreedItem(
+                        breedName = it.name,
+                        imgUrl = it.imageUrl
+                    ) {
+                        onBreedClicked(it.name)
+                    }
                 }
             }
         }
-    }
 }
 
 @Composable

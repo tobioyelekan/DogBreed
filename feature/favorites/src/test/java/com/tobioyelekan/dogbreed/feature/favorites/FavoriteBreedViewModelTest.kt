@@ -1,6 +1,5 @@
 package com.tobioyelekan.dogbreed.feature.favorites
 
-import com.tobioyelekan.dogbreed.core.common.result.Result
 import com.tobioyelekan.dogbreed.domain.favorites.GetFavoriteBreedsUseCase
 import com.tobioyelekan.dogbreed.testing.data.TestData.dogBreeds
 import com.tobioyelekan.dogbreed.testing.util.MainDispatcherRule
@@ -34,7 +33,7 @@ class FavoriteBreedViewModelTest {
 
     @Test
     fun `emit favorite breeds when usecase returns success and list is not empty`() = runTest {
-        coEvery { useCase.invoke() } returns flowOf(Result.Success(favoriteBreeds))
+        coEvery { useCase.invoke() } returns flowOf(Result.success(favoriteBreeds))
         viewModel = FavoriteBreedViewModel(useCase)
 
         val collectJob = launch(coroutineTestDispatcher) {
@@ -51,21 +50,9 @@ class FavoriteBreedViewModelTest {
     }
 
     @Test
-    fun `emit empty state when usecase returns success and list is empty`() = runTest {
-        coEvery { useCase.invoke() } returns flowOf(Result.Success(emptyList()))
-        viewModel = FavoriteBreedViewModel(useCase)
-
-        val collectJob = launch(coroutineTestDispatcher) {
-            viewModel.uiState.collect()
-        }
-
-        assert(viewModel.uiState.value is FavoriteBreedUIState.Empty)
-        collectJob.cancel()
-    }
-
-    @Test
     fun `emit error state when usecase returns error`() = runTest {
-        coEvery { useCase.invoke() } returns flowOf(Result.Failure("Something went wrong"))
+        coEvery { useCase.invoke() } returns
+                flowOf(Result.failure(Exception("Something went wrong")))
         viewModel = FavoriteBreedViewModel(useCase)
 
         val collectJob = launch(coroutineTestDispatcher) {

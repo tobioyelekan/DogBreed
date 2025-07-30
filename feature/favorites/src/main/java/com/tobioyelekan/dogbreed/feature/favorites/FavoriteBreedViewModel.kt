@@ -9,7 +9,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
-import com.tobioyelekan.dogbreed.core.common.result.Result
 
 @HiltViewModel
 class FavoriteBreedViewModel @Inject constructor(
@@ -17,16 +16,17 @@ class FavoriteBreedViewModel @Inject constructor(
 ) : ViewModel() {
 
     val uiState: StateFlow<FavoriteBreedUIState> =
-        getFavoriteBreedsUseCase().map { result ->
-            when (result) {
-                is Result.Success -> {
-                    if (result.value.isEmpty()) return@map FavoriteBreedUIState.Empty
-                    FavoriteBreedUIState.Success(result.value)
-                }
-
-                is Result.Failure -> FavoriteBreedUIState.Error(result.errorMessage)
+        getFavoriteBreedsUseCase()
+            .map { result ->
+                result.fold(
+                    onSuccess = { data ->
+                        FavoriteBreedUIState.Success(data)
+                    },
+                    onFailure = {
+                        FavoriteBreedUIState.Error("something went wrong")
+                    }
+                )
             }
-        }
             .stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(5_000),

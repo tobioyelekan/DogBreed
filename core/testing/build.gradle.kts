@@ -33,10 +33,10 @@ android {
 }
 
 dependencies {
-    api(Dependencies.Testing.junit)
-    api(Dependencies.Testing.turbine)
-    api(Dependencies.Testing.mockk)
-    api(Dependencies.Testing.coroutineTest)
+    api(libs.junit)
+    api(libs.turbine)
+    api(libs.mockk)
+    api(libs.coroutine.test)
 
     implementation(project(":core:model"))
 }

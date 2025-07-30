@@ -39,10 +39,10 @@ android {
 }
 
 dependencies {
-    implementation(Dependencies.core)
-    api(Dependencies.Hilt.hiltCompose)
-    api(Dependencies.JetpackCompose.lifecycleRuntime)
-    api(Dependencies.JetpackCompose.material3)
-    api(Dependencies.JetpackCompose.toolingPreview)
-    api(Dependencies.Coil.coilCompose)
+    implementation(libs.core)
+    api(libs.hilt.compose)
+    api(libs.compose.lifecycle.runtime)
+    api(libs.compose.material3)
+    api(libs.compose.ui.tooling)
+    api(libs.coil.compose)
 }

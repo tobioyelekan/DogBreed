@@ -61,10 +61,9 @@ dependencies {
 
     implementation(project(":core:designsystem"))
 
-    implementation(Dependencies.JetpackCompose.iconsExtended)
+    implementation(libs.compose.icons.extended)
 
-    implementation(Dependencies.Hilt.hiltCompose)
-    implementation(Dependencies.Hilt.hiltCore)
-    implementation(Dependencies.Hilt.hiltAndroid)
-    ksp(Dependencies.Hilt.hiltCompiler)
+    implementation(libs.hilt.compose)
+    implementation(libs.hilt.core)
+    ksp(libs.hilt.compiler)
 }

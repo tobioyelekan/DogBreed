@@ -3,7 +3,6 @@ package com.tobioyelekan.dogbreed.feature.breedDetails
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.tobioyelekan.dogbreed.core.common.result.Result
 import com.tobioyelekan.dogbreed.core.common.util.toTitleCase
 import com.tobioyelekan.dogbreed.domain.breedDetails.AddFavoriteBreedUseCase
 import com.tobioyelekan.dogbreed.domain.breedDetails.DeleteFavoriteBreedUseCase
@@ -46,12 +45,15 @@ class DogBreedDetailsViewModel @Inject constructor(
     }
 
     val uiState: StateFlow<DogBreedDetailsUIState> =
-        getBreedDetailsUseCase(breedName).map { result ->
-            when (result) {
-                is Result.Success -> DogBreedDetailsUIState.Success(result.value)
-                is Result.Failure -> DogBreedDetailsUIState.Error(result.errorMessage)
+        getBreedDetailsUseCase(breedName)
+            .map { result ->
+                result.fold(
+                    onSuccess = { DogBreedDetailsUIState.Success(it) },
+                    onFailure = {
+                        DogBreedDetailsUIState.Error("Something went wrong")
+                    }
+                )
             }
-        }
             .stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(5_000),
@@ -60,21 +62,20 @@ class DogBreedDetailsViewModel @Inject constructor(
 
     fun onFavoriteClicked(isFavorite: Boolean) {
         viewModelScope.launch(ioDispatcher) {
-            val result = if (isFavorite)
-                deleteFavoriteBreedUseCase.invoke(breedName)
-            else
-                addFavoriteBreedUseCase.invoke(breedName)
+            val result = if (isFavorite) {
+                deleteFavoriteBreedUseCase(breedName)
+            } else {
+                addFavoriteBreedUseCase(breedName)
+            }
 
-            when (result) {
-                is Result.Success -> {
+            result
+                .onSuccess {
                     val msg = if (isFavorite) "Removed as favorite" else "Added as favorite"
                     _actionState.emit(ActionState.ShowMessage(msg))
                 }
-
-                is Result.Failure -> {
-                    _actionState.emit(ActionState.ShowMessage(result.errorMessage))
+                .onFailure {
+                    _actionState.emit(ActionState.ShowMessage("Something went wrong"))
                 }
-            }
         }
     }
 

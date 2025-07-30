@@ -11,7 +11,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import com.tobioyelekan.dogbreed.core.common.result.Result
 import com.tobioyelekan.dogbreed.core.common.util.toTitleCase
 import com.tobioyelekan.dogbreed.feature.subbreeds.navigation.breedNameArgs
 import com.tobioyelekan.dogbreed.feature.subbreeds.navigation.subBreedNameArgs
@@ -37,10 +36,13 @@ class SubBreedViewModel @Inject constructor(
 
     private fun fetchImages() {
         viewModelScope.launch {
-            when (val result = getSubBreedImageUseCase(breedName, subBreedName)) {
-                is Result.Success -> _uiState.update { SubBreedUIState.Success(result.value) }
-                is Result.Failure -> _uiState.update { SubBreedUIState.Error(result.errorMessage) }
-            }
+            getSubBreedImageUseCase(breedName, subBreedName)
+                .onSuccess { result ->
+                    _uiState.update { SubBreedUIState.Success(result) }
+                }
+                .onFailure {
+                    _uiState.update { SubBreedUIState.Error("something went wrong") }
+                }
         }
     }
 }
