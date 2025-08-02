@@ -10,6 +10,7 @@ import com.tobioyelekan.dogbreed.domain.breedDetails.GetBreedDetailsUseCase
 import com.tobioyelekan.dogbreed.feature.breedDetails.navigation.breedNameArgs
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -20,6 +21,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -70,11 +72,15 @@ class DogBreedDetailsViewModel @Inject constructor(
 
             result
                 .onSuccess {
-                    val msg = if (isFavorite) "Removed as favorite" else "Added as favorite"
-                    _actionState.emit(ActionState.ShowMessage(msg))
+                    withContext(Dispatchers.Main) {
+                        val msg = if (isFavorite) "Removed as favorite" else "Added as favorite"
+                        _actionState.emit(ActionState.ShowMessage(msg))
+                    }
                 }
                 .onFailure {
-                    _actionState.emit(ActionState.ShowMessage("Something went wrong"))
+                    withContext(Dispatchers.Main) {
+                        _actionState.emit(ActionState.ShowMessage("Something went wrong"))
+                    }
                 }
         }
     }

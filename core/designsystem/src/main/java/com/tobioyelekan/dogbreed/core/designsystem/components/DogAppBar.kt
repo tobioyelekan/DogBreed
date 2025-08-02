@@ -37,7 +37,7 @@ fun DogAppBar(
                     IconButton(onClick = { onBackClicked() }) {
                         Icon(
                             imageVector = Icons.Filled.ArrowBack,
-                            contentDescription = null
+                            contentDescription = "navUp"
                         )
                     }
                 },

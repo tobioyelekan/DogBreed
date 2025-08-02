@@ -60,6 +60,6 @@ dependencies {
     androidTestImplementation(project(":core:testing"))
     androidTestImplementation(kotlin("test"))
 
-    androidTestImplementation(libs.compose.junit.ui.test)
+    androidTestImplementation(libs.compose.ui.test)
     debugImplementation(libs.compose.test.manifest)
 }
