@@ -98,7 +98,10 @@ internal fun DogBreedDetailsScreenContent(
                         Icons.Filled.Favorite
                     else
                         Icons.Outlined.FavoriteBorder,
-                    contentDescription = if (isFavorite) "click to remove breed as favorite" else "click to add breed as favorite"
+                    contentDescription = if (isFavorite)
+                        "click to remove breed as favorite"
+                    else
+                        "click to add breed as favorite"
                 )
             }
         }
@@ -142,7 +145,9 @@ private fun DogBreedDetailsContent(
             contentDescription = null,
             placeholder = painterResource(id = R.drawable.ic_dog_placeholder),
             error = painterResource(id = R.drawable.ic_dog_placeholder),
-            modifier = Modifier.height(200.dp).testTag("image")
+            modifier = Modifier
+                .height(200.dp)
+                .testTag("image")
         )
 
         Spacer(modifier = Modifier.height(10.dp))

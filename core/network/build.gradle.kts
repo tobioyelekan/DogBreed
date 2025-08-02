@@ -53,5 +53,6 @@ dependencies {
     implementation(libs.timber)
 
     implementation(libs.hilt.core)
+    implementation(libs.hilt.android.testing)
     ksp(libs.hilt.compiler)
 }

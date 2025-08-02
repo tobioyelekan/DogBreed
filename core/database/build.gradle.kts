@@ -45,6 +45,7 @@ dependencies {
     ksp(libs.hilt.compiler)
 
     implementation(project(":core:model"))
+    implementation(libs.hilt.android.testing)
 
     androidTestImplementation(project(":core:testing"))
     androidTestImplementation(kotlin("test"))
