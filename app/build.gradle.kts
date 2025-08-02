@@ -16,11 +16,17 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.tobioyelekan.dogbreed.testing.DogBreedTestRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
         buildConfigField("String", "BASE_URL", "\"https://dog.ceo/api/\"")
+
+        testOptions {
+            unitTests {
+                isIncludeAndroidResources = true
+            }
+        }
     }
 
     buildTypes {
@@ -48,7 +54,14 @@ android {
     }
     packaging {
         resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes += setOf(
+                "/META-INF/{AL2.0,LGPL2.1}",
+                "META-INF/LICENSE.md",
+                "META-INF/LICENSE-notice.md",
+                "META-INF/DEPENDENCIES",
+                "META-INF/NOTICE",
+                "META-INF/LICENSE"
+            )
         }
     }
 }
@@ -65,5 +78,24 @@ dependencies {
 
     implementation(libs.hilt.compose)
     implementation(libs.hilt.core)
+    implementation(libs.androidx.test.core)
     ksp(libs.hilt.compiler)
+
+    kspTest(libs.hilt.compiler)
+    kspAndroidTest(libs.hilt.compiler)
+
+    debugImplementation(libs.compose.test.manifest)
+    debugImplementation(libs.hilt.android.testing)
+
+    androidTestImplementation(libs.androidx.test.runner)
+    androidTestImplementation(libs.hilt.android.testing)
+    androidTestImplementation(libs.compose.ui.test)
+    androidTestImplementation(libs.android.junit)
+    androidTestImplementation(project(":core:database"))
+    androidTestImplementation(project(":core:network"))
+    androidTestImplementation(project(":core:testing"))
+
+    androidTestImplementation(libs.androidx.test.core)
+    androidTestImplementation(libs.androidx.test.rules)
+    androidTestImplementation(libs.espresso.core)
 }
