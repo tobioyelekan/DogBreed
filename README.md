@@ -36,6 +36,8 @@ The app has a few screens located in multiple feature modules:
 <img alt="image showing all favorite breeds" src="https://raw.githubusercontent.com/tobioyelekan/DogBreed/master/screenshots/favorite_breeds.png">
 </p>
 
+https://github.com/user-attachments/assets/fb91488f-e781-40a8-a4a9-118ca5e0fe13
+
 ## Tech Stack
 * [Compose](https://developer.android.com/jetpack/compose) - modern toolkit for building native Android UI
 
