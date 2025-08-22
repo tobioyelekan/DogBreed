@@ -1,15 +1,10 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
-    id("com.android.application") version "8.11.1" apply false
-    id("org.jetbrains.kotlin.android") version "1.9.10" apply false
-    id("com.android.library") version "8.11.1" apply false
-    id("com.google.devtools.ksp") version "1.9.0-1.0.13" apply false
-    id("org.jetbrains.kotlin.plugin.serialization") version "1.8.10" apply false
-}
-
-buildscript {
-    dependencies {
-        classpath(libs.hilt.android.gradle.plugin)
-        classpath("org.jetbrains.kotlin:kotlin-serialization:1.9.10")
-    }
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.android.library) apply false
+    alias(libs.plugins.kotlin.android) apply false
+    alias(libs.plugins.kotlin.compose) apply false
+    alias(libs.plugins.jetbrains.kotlin.serialization) apply false
+    alias(libs.plugins.dagger.hilt) apply false
+    alias(libs.plugins.ksp) apply false
 }
