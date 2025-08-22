@@ -34,6 +34,9 @@ android {
             jvmTarget = JvmTarget.JVM_17
         }
     }
+    packaging {
+        resources.excludes.add("META-INF/*")
+    }
 }
 
 dependencies {

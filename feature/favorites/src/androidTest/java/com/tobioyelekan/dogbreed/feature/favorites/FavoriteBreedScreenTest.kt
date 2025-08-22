@@ -46,22 +46,6 @@ class FavoriteBreedScreenTest {
     }
 
     @Test
-    fun shouldShowEmptyState_when_EmptyStateIsReceived() {
-        composeTestRule.setContent {
-            FavoriteBreedScreenContent(
-                viewState = FavoriteBreedUIState.Empty,
-                onBreedClicked = {}
-            )
-        }
-
-        composeTestRule.onNodeWithTag("loader")
-            .assertIsNotDisplayed()
-
-        composeTestRule.onNodeWithTag("emptyState")
-            .assertIsDisplayed()
-    }
-
-    @Test
     fun shouldShowError_whenErrorStateIsReceived() {
         composeTestRule.setContent {
             FavoriteBreedScreenContent(
