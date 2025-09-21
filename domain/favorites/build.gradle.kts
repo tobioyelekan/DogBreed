@@ -38,10 +38,10 @@ dependencies {
     implementation(libs.hilt.core)
     ksp(libs.hilt.compiler)
 
-    implementation(project(":data:breedDetails"))
-    implementation(project(":core:common"))
-    implementation(project(":core:model"))
+    implementation(projects.data.breedDetails)
+    implementation(projects.core.common)
+    implementation(projects.core.model)
 
-    testImplementation(project(":core:testing"))
+    testImplementation(projects.core.testing)
     testImplementation(kotlin("test"))
 }
