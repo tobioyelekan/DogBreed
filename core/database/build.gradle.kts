@@ -44,10 +44,10 @@ dependencies {
     implementation(libs.hilt.core)
     ksp(libs.hilt.compiler)
 
-    implementation(project(":core:model"))
+    implementation(projects.core.model)
     implementation(libs.hilt.android.testing)
 
-    androidTestImplementation(project(":core:testing"))
+    androidTestImplementation(projects.core.testing)
     androidTestImplementation(kotlin("test"))
 
     androidTestImplementation(libs.room.testing)
