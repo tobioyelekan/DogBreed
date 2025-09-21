@@ -38,10 +38,10 @@ dependencies {
     implementation(libs.hilt.core)
     ksp(libs.hilt.compiler)
 
-    implementation(project(":core:network"))
-    implementation(project(":core:common"))
-    implementation(project(":core:model"))
+    implementation(projects.core.network)
+    implementation(projects.core.common)
+    implementation(projects.core.model)
 
-    testImplementation(project(":core:testing"))
+    testImplementation(projects.core.testing)
     testImplementation(kotlin("test"))
 }
