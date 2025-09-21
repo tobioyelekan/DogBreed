@@ -67,12 +67,12 @@ android {
 }
 
 dependencies {
-    implementation(project(":feature:allbreeds"))
-    implementation(project(":feature:breedDetails"))
-    implementation(project(":feature:favorites"))
-    implementation(project(":feature:subbreeds"))
+    implementation(projects.feature.allbreeds)
+    implementation(projects.feature.breedDetails)
+    implementation(projects.feature.favorites)
+    implementation(projects.feature.subbreeds)
 
-    implementation(project(":core:designsystem"))
+    implementation(projects.core.designsystem)
 
     implementation(libs.compose.icons.extended)
 
@@ -91,9 +91,9 @@ dependencies {
     androidTestImplementation(libs.hilt.android.testing)
     androidTestImplementation(libs.compose.ui.test)
     androidTestImplementation(libs.android.junit)
-    androidTestImplementation(project(":core:database"))
-    androidTestImplementation(project(":core:network"))
-    androidTestImplementation(project(":core:testing"))
+    androidTestImplementation(projects.core.database)
+    androidTestImplementation(projects.core.network)
+    androidTestImplementation(projects.core.testing)
 
     androidTestImplementation(libs.androidx.test.core)
     androidTestImplementation(libs.androidx.test.rules)

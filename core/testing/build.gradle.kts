@@ -38,10 +38,10 @@ dependencies {
     api(libs.mockk)
     api(libs.coroutine.test)
 
-    api(project(":core:model"))
-    api(project(":data:allbreeds"))
-    api(project(":data:breedDetails"))
-    api(project(":data:subbreeds"))
+    api(projects.core.model)
+    api(projects.data.allbreeds)
+    api(projects.data.breedDetails)
+    api(projects.data.subbreeds)
 
     implementation(libs.hilt.android.testing)
     implementation(libs.androidx.test.runner)

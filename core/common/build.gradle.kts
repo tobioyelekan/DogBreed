@@ -38,6 +38,6 @@ dependencies {
     implementation(libs.hilt.core)
     ksp(libs.hilt.compiler)
 
-    testImplementation(project(":core:testing"))
+    testImplementation(projects.core.testing)
     testImplementation(kotlin("test"))
 }

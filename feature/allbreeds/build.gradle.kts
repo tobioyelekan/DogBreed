@@ -48,15 +48,15 @@ dependencies {
     implementation(libs.hilt.core)
     ksp(libs.hilt.compiler)
 
-    implementation(project(":domain:allbreeds"))
-    implementation(project(":core:designsystem"))
-    implementation(project(":core:model"))
-    implementation(project(":core:common"))
+    implementation(projects.domain.allbreeds)
+    implementation(projects.core.designsystem)
+    implementation(projects.core.model)
+    implementation(projects.core.common)
 
-    testImplementation(project(":core:testing"))
+    testImplementation(projects.core.testing)
     testImplementation(kotlin("test"))
 
-    androidTestImplementation(project(":core:testing"))
+    androidTestImplementation(projects.core.testing)
     androidTestImplementation(kotlin("test"))
 
     androidTestImplementation(libs.compose.ui.test)
