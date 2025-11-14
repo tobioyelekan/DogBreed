@@ -14,6 +14,8 @@
             <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/core/common" />
             <option value="$PROJECT_DIR$/core/database" />
+            <option value="$PROJECT_DIR$/core/database/gateway" />
+            <option value="$PROJECT_DIR$/core/database/implementation" />
             <option value="$PROJECT_DIR$/core/designsystem" />
             <option value="$PROJECT_DIR$/core/model" />
             <option value="$PROJECT_DIR$/core/network" />
@@ -32,6 +34,10 @@
             <option value="$PROJECT_DIR$/feature/breedDetails" />
             <option value="$PROJECT_DIR$/feature/favorites" />
             <option value="$PROJECT_DIR$/feature/subbreeds" />
+            <option value="$PROJECT_DIR$/new_feature" />
+            <option value="$PROJECT_DIR$/new_feature/allbreeds" />
+            <option value="$PROJECT_DIR$/new_feature/allbreeds/data" />
+            <option value="$PROJECT_DIR$/new_feature/allbreeds/domain" />
           </set>
         </option>
       </GradleProjectSettings>
