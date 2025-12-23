@@ -29,6 +29,9 @@
             <option value="$PROJECT_DIR$/domain/subbreeds" />
             <option value="$PROJECT_DIR$/feature" />
             <option value="$PROJECT_DIR$/feature/allbreeds" />
+            <option value="$PROJECT_DIR$/feature/allbreeds/data" />
+            <option value="$PROJECT_DIR$/feature/allbreeds/domain" />
+            <option value="$PROJECT_DIR$/feature/allbreeds/ui" />
             <option value="$PROJECT_DIR$/feature/breedDetails" />
             <option value="$PROJECT_DIR$/feature/favorites" />
             <option value="$PROJECT_DIR$/feature/subbreeds" />
