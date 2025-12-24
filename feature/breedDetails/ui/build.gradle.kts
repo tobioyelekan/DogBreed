@@ -2,11 +2,10 @@ plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
     id("com.google.devtools.ksp")
-    id("dagger.hilt.android.plugin")
 }
 
 android {
-    namespace = "com.tobioyelekan.dogbreed.domain.favorites"
+    namespace = "com.tobioyelekan.dogbreed.feature.breedDetails"
     compileSdk = 34
 
     defaultConfig {
@@ -26,22 +25,40 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = "17"
+        jvmTarget = "1.8"
+    }
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.3"
+    }
+    packaging {
+        resources.excludes.add("META-INF/*")
     }
 }
 
 dependencies {
     implementation(libs.hilt.core)
     ksp(libs.hilt.compiler)
+    implementation(libs.kotlin.coroutine)
 
+    implementation(projects.feature.breedDetails.data)
     implementation(projects.feature.breedDetails.domain)
-    implementation(projects.core.common)
+    implementation(projects.core.designsystem)
     implementation(projects.core.model)
+    implementation(projects.core.common)
 
     testImplementation(projects.core.testing)
     testImplementation(kotlin("test"))
+
+    androidTestImplementation(projects.core.testing)
+    androidTestImplementation(kotlin("test"))
+
+    androidTestImplementation(libs.compose.ui.test)
+    debugImplementation(libs.compose.test.manifest)
 }

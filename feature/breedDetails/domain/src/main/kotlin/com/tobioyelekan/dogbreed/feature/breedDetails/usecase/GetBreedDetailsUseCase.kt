@@ -1,14 +1,13 @@
-package com.tobioyelekan.dogbreed.domain.favorites
+package com.tobioyelekan.dogbreed.feature.breedDetails.usecase
 
 import com.tobioyelekan.dogbreed.core.model.DogBreed
 import com.tobioyelekan.dogbreed.feature.breedDetails.repository.DogBreedDetailRepository
 import kotlinx.coroutines.flow.Flow
-import javax.inject.Inject
 
-class GetFavoriteBreedsUseCase @Inject constructor(
+class GetBreedDetailsUseCase(
     private val repository: DogBreedDetailRepository
 ) {
-    operator fun invoke(): Flow<Result<List<DogBreed>>> {
-        return repository.getFavoriteBreeds()
+    operator fun invoke(breedName: String): Flow<Result<DogBreed>> {
+        return repository.getBreedDetails(breedName)
     }
 }

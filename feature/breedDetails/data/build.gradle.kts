@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.tobioyelekan.dogbreed.domain.favorites"
+    namespace = "com.tobioyelekan.dogbreed.data.allbreeds"
     compileSdk = 34
 
     defaultConfig {
@@ -38,9 +38,10 @@ dependencies {
     implementation(libs.hilt.core)
     ksp(libs.hilt.compiler)
 
-    implementation(projects.feature.breedDetails.domain)
+    implementation(projects.core.network)
+    implementation(projects.core.database)
     implementation(projects.core.common)
-    implementation(projects.core.model)
+    implementation(projects.feature.breedDetails.domain)
 
     testImplementation(projects.core.testing)
     testImplementation(kotlin("test"))
