@@ -21,7 +21,6 @@
             <option value="$PROJECT_DIR$/data" />
             <option value="$PROJECT_DIR$/data/subbreeds" />
             <option value="$PROJECT_DIR$/domain" />
-            <option value="$PROJECT_DIR$/domain/favorites" />
             <option value="$PROJECT_DIR$/domain/subbreeds" />
             <option value="$PROJECT_DIR$/feature" />
             <option value="$PROJECT_DIR$/feature/allbreeds" />
@@ -33,6 +32,8 @@
             <option value="$PROJECT_DIR$/feature/breedDetails/domain" />
             <option value="$PROJECT_DIR$/feature/breedDetails/ui" />
             <option value="$PROJECT_DIR$/feature/favorites" />
+            <option value="$PROJECT_DIR$/feature/favorites/domain" />
+            <option value="$PROJECT_DIR$/feature/favorites/ui" />
             <option value="$PROJECT_DIR$/feature/subbreeds" />
           </set>
         </option>

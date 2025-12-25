@@ -69,7 +69,7 @@ android {
 dependencies {
     implementation(projects.feature.allbreeds.ui)
     implementation(projects.feature.breedDetails.ui)
-    implementation(projects.feature.favorites)
+    implementation(projects.feature.favorites.ui)
     implementation(projects.feature.subbreeds)
 
     implementation(projects.core.designsystem)
