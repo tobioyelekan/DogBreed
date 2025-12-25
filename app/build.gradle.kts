@@ -70,7 +70,7 @@ dependencies {
     implementation(projects.feature.allbreeds.ui)
     implementation(projects.feature.breedDetails.ui)
     implementation(projects.feature.favorites.ui)
-    implementation(projects.feature.subbreeds)
+    implementation(projects.feature.subbreeds.ui)
 
     implementation(projects.core.designsystem)
 
