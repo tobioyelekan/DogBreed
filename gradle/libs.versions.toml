@@ -31,6 +31,8 @@ coroutine-test = "1.5.2"
 androidx-test-core = "1.7.0"
 androidx-test-runner = "1.7.0"
 androidx-test = "1.7.0"
+jetbrains-kotlin-jvm = "1.9.10"
+robolectric = "4.16"
 
 [libraries]
 core = { module = "androidx.core:core-ktx", version.ref = "core" }
@@ -93,9 +95,11 @@ turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
 coroutine-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutine-test" }
 androidx-test-runner = { module = "androidx.test:runner", version.ref = "androidx-test-runner" }
 androidx-test-rules = { group = "androidx.test", name = "rules", version.ref = "androidx-test" }
+robolectric = { group = "org.robolectric", name = "robolectric", version.ref = "robolectric" }
 
 [plugins]
 android-library = { id = "com.android.library" }
 kotlin-android = { id = "org.jetbrains.kotlin.android" }
 dagger-hilt = { id = "com.google.dagger.hilt.android" }
 kotlin-kapt = { id = "kotlin-kapt" }
+jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrains-kotlin-jvm" }

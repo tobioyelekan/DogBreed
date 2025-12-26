@@ -18,20 +18,22 @@
             <option value="$PROJECT_DIR$/core/model" />
             <option value="$PROJECT_DIR$/core/network" />
             <option value="$PROJECT_DIR$/core/testing" />
-            <option value="$PROJECT_DIR$/data" />
-            <option value="$PROJECT_DIR$/data/allbreeds" />
-            <option value="$PROJECT_DIR$/data/breedDetails" />
-            <option value="$PROJECT_DIR$/data/subbreeds" />
-            <option value="$PROJECT_DIR$/domain" />
-            <option value="$PROJECT_DIR$/domain/allbreeds" />
-            <option value="$PROJECT_DIR$/domain/breedDetails" />
-            <option value="$PROJECT_DIR$/domain/favorites" />
-            <option value="$PROJECT_DIR$/domain/subbreeds" />
             <option value="$PROJECT_DIR$/feature" />
             <option value="$PROJECT_DIR$/feature/allbreeds" />
+            <option value="$PROJECT_DIR$/feature/allbreeds/data" />
+            <option value="$PROJECT_DIR$/feature/allbreeds/domain" />
+            <option value="$PROJECT_DIR$/feature/allbreeds/ui" />
             <option value="$PROJECT_DIR$/feature/breedDetails" />
+            <option value="$PROJECT_DIR$/feature/breedDetails/data" />
+            <option value="$PROJECT_DIR$/feature/breedDetails/domain" />
+            <option value="$PROJECT_DIR$/feature/breedDetails/ui" />
             <option value="$PROJECT_DIR$/feature/favorites" />
+            <option value="$PROJECT_DIR$/feature/favorites/domain" />
+            <option value="$PROJECT_DIR$/feature/favorites/ui" />
             <option value="$PROJECT_DIR$/feature/subbreeds" />
+            <option value="$PROJECT_DIR$/feature/subbreeds/data" />
+            <option value="$PROJECT_DIR$/feature/subbreeds/domain" />
+            <option value="$PROJECT_DIR$/feature/subbreeds/ui" />
           </set>
         </option>
       </GradleProjectSettings>
