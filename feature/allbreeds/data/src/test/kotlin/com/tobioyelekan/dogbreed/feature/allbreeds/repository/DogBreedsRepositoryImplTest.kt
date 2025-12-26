@@ -6,8 +6,8 @@ import com.tobioyelekan.dogbreed.core.database.entity.toDomainModel
 import com.tobioyelekan.dogbreed.core.network.DogBreedApiService
 import com.tobioyelekan.dogbreed.core.network.model.BreedImageApiModel
 import com.tobioyelekan.dogbreed.core.network.model.DogBreedsApiModel
-import com.tobioyelekan.dogbreed.data.allbreeds.mapper.toEntity
-import com.tobioyelekan.dogbreed.data.allbreeds.util.mergeEntities
+import com.tobioyelekan.dogbreed.feature.allbreeds.mapper.toEntity
+import com.tobioyelekan.dogbreed.feature.allbreeds.util.mergeEntities
 import com.tobioyelekan.dogbreed.testing.data.TestData.dogBreedApiResponseTestData
 import io.mockk.coEvery
 import io.mockk.coVerify

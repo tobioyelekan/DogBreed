@@ -41,6 +41,11 @@ android {
     packaging {
         resources.excludes.add("META-INF/*")
     }
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+        }
+    }
 }
 
 dependencies {
@@ -56,10 +61,8 @@ dependencies {
     testImplementation(projects.core.testing)
     testImplementation(kotlin("test"))
 
-    androidTestImplementation(projects.core.testing)
-    androidTestImplementation(kotlin("test"))
-
-    androidTestImplementation(libs.compose.ui.test)
+    implementation(libs.robolectric)
+    testImplementation(libs.compose.ui.test)
     debugImplementation(libs.compose.test.manifest)
 
 }
