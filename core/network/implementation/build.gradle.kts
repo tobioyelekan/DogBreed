@@ -1,9 +1,31 @@
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
+    kotlin("multiplatform")
+    alias(libs.plugins.android.library)
     id("com.google.devtools.ksp")
     id("dagger.hilt.android.plugin")
-    kotlin("plugin.serialization") version "2.2.20"
+}
+
+kotlin {
+    jvmToolchain(17)
+    jvm()
+    androidTarget()
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
+
+    sourceSets {
+        commonMain.dependencies {
+            implementation(projects.core.network.api)
+            implementation(libs.bundles.ktor)
+        }
+        androidMain.dependencies {
+            implementation(libs.ktor.okhttp)
+            implementation(libs.hilt.core)
+        }
+        iosMain.dependencies {
+            implementation(libs.ktor.darwin)
+        }
+    }
 }
 
 android {
@@ -15,8 +37,6 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
-
-        buildConfigField("String", "BASE_URL", "\"https://dog.ceo/api/\"")
     }
 
     buildTypes {
@@ -29,30 +49,12 @@ android {
         }
     }
 
-    buildFeatures {
-        buildConfig = true
-    }
-
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlinOptions {
-        jvmTarget = "17"
-    }
 }
 
 dependencies {
-    implementation(libs.retrofit.core)
-    implementation(libs.retrofit.kotlin.serialization)
-    implementation(libs.retrofit.scalars)
-
-    implementation(libs.kotlin.serialization)
-
-    implementation(libs.logging.interceptor)
-    implementation(libs.timber)
-
-    implementation(libs.hilt.core)
-    implementation(libs.hilt.android.testing)
-    ksp(libs.hilt.compiler)
+    add("kspAndroid", libs.hilt.compiler)
 }

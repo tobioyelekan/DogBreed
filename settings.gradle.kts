@@ -17,7 +17,8 @@ rootProject.name = "DogBreed"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 include(":app")
-include(":core:network")
+include(":core:network:api")
+include(":core:network:implementation")
 include(":core:database")
 include(":core:model")
 include(":core:common")

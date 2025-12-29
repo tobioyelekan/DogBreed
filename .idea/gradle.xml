@@ -17,6 +17,8 @@
             <option value="$PROJECT_DIR$/core/designsystem" />
             <option value="$PROJECT_DIR$/core/model" />
             <option value="$PROJECT_DIR$/core/network" />
+            <option value="$PROJECT_DIR$/core/network/api" />
+            <option value="$PROJECT_DIR$/core/network/implementation" />
             <option value="$PROJECT_DIR$/core/testing" />
             <option value="$PROJECT_DIR$/feature" />
             <option value="$PROJECT_DIR$/feature/allbreeds" />

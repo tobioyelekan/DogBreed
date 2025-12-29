@@ -37,8 +37,7 @@ android {
 dependencies {
     implementation(libs.hilt.core)
     ksp(libs.hilt.compiler)
-
-    implementation(projects.core.network)
+    
     implementation(projects.core.database)
     implementation(projects.core.common)
     implementation(projects.feature.breedDetails.domain)

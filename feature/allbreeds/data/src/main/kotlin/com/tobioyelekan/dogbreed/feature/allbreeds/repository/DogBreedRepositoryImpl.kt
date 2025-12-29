@@ -1,9 +1,9 @@
 package com.tobioyelekan.dogbreed.feature.allbreeds.repository
 
 import com.tobioyelekan.dogbreed.core.database.dao.DogBreedDao
-import com.tobioyelekan.dogbreed.core.network.DogBreedApiService
 import com.tobioyelekan.dogbreed.core.database.entity.toDomainModel
 import com.tobioyelekan.dogbreed.core.model.DogBreed
+import com.tobioyelekan.dogbreed.core.network.api.DogBreedApiService
 import com.tobioyelekan.dogbreed.feature.allbreeds.mapper.toEntity
 import com.tobioyelekan.dogbreed.feature.allbreeds.util.mergeEntities
 import kotlinx.coroutines.async
@@ -21,10 +21,10 @@ class DogBreedsRepositoryImpl @Inject constructor(
         return runCatching {
             val dogBreedEntities = coroutineScope {
                 val response = dogBreedService.getAllDogBreeds()
-                response.breeds.map { breed ->
+                response.getOrThrow().breeds.map { breed ->
                     async {
                         val image = dogBreedService.getBreedRandomImage(breed.key)
-                        breed.toEntity(image.imageUrl)
+                        breed.toEntity(image.getOrThrow().imageUrl)
                     }
                 }.awaitAll()
             }

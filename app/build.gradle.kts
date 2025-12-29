@@ -97,4 +97,7 @@ dependencies {
     androidTestImplementation(libs.androidx.test.core)
     androidTestImplementation(libs.androidx.test.rules)
     androidTestImplementation(libs.espresso.core)
+
+    //TODO(Remove after replacing hilt with koin)
+    implementation(projects.core.network.implementation)
 }

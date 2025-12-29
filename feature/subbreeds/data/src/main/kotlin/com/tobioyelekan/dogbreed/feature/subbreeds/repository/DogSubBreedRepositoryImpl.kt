@@ -1,7 +1,7 @@
 package com.tobioyelekan.dogbreed.feature.subbreeds.repository
 
-import com.tobioyelekan.dogbreed.core.network.DogBreedApiService
 import com.tobioyelekan.dogbreed.core.model.SubBreedImage
+import com.tobioyelekan.dogbreed.core.network.api.DogBreedApiService
 import com.tobioyelekan.dogbreed.feature.subbreeds.mapper.toDomain
 import javax.inject.Inject
 
@@ -11,12 +11,10 @@ class DogSubBreedRepositoryImpl @Inject constructor(
     override suspend fun getSubBreeds(
         breedName: String,
         subBreedName: String
-    ): Result<List<SubBreedImage>> {
-        return runCatching {
-            dogBreedService.getSubBreedImages(
-                breedName = breedName,
-                subBreedName = subBreedName
-            ).toDomain()
-        }
-    }
+    ): Result<List<SubBreedImage>> =
+        dogBreedService.getSubBreedImages(
+            breedName = breedName,
+            subBreedName = subBreedName
+        )
+            .mapCatching { it.toDomain() }
 }
