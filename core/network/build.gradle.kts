@@ -3,12 +3,12 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("com.google.devtools.ksp")
     id("dagger.hilt.android.plugin")
-    kotlin("plugin.serialization") version "1.8.10"
+    kotlin("plugin.serialization") version "2.2.20"
 }
 
 android {
     namespace = "com.tobioyelekan.dogbreed.core.network"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         minSdk = 24

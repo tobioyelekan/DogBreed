@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "com.tobioyelekan.dogbreed.data.allbreeds"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         minSdk = 24

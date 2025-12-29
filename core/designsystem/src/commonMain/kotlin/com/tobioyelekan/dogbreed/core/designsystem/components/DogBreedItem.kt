@@ -13,13 +13,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
-import com.tobioyelekan.dogbreed.core.designsystem.R
+import coil3.compose.AsyncImage
+import coil3.compose.LocalPlatformContext
+import coil3.request.ImageRequest
+import coil3.request.crossfade
+import com.tobioyelekan.dogbreed.core.designsystem.Res
+import com.tobioyelekan.dogbreed.core.designsystem.ic_dog_placeholder
+import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun DogBreedItem(
@@ -27,15 +29,17 @@ fun DogBreedItem(
     imgUrl: String,
     onBreedClicked: () -> Unit
 ) {
-    val model = ImageRequest.Builder(LocalContext.current).data(imgUrl).crossfade(true).build()
+    val model = ImageRequest.Builder(LocalPlatformContext.current)
+        .data(imgUrl)
+        .crossfade(true).build()
 
     Box(Modifier.testTag("Item")) {
         AsyncImage(
             model = model,
             contentScale = ContentScale.Crop,
             contentDescription = null,
-            placeholder = painterResource(id = R.drawable.ic_dog_placeholder),
-            error = painterResource(id = R.drawable.ic_dog_placeholder),
+            placeholder = painterResource(Res.drawable.ic_dog_placeholder),
+            error = painterResource(Res.drawable.ic_dog_placeholder),
             modifier = Modifier
                 .fillMaxHeight()
                 .aspectRatio(1f)

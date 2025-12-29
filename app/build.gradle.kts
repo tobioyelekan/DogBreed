@@ -3,16 +3,17 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("dagger.hilt.android.plugin")
     id("com.google.devtools.ksp")
+        alias(libs.plugins.compose.compiler)
 }
 
 android {
     namespace = "com.tobioyelekan.dogbreed"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.tobioyelekan.dogbreed"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -49,9 +50,6 @@ android {
         buildConfig = true
         compose = true
     }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.3"
-    }
     packaging {
         resources {
             excludes += setOf(
@@ -60,7 +58,8 @@ android {
                 "META-INF/LICENSE-notice.md",
                 "META-INF/DEPENDENCIES",
                 "META-INF/NOTICE",
-                "META-INF/LICENSE"
+                "META-INF/LICENSE",
+                "META-INF/versions/9/OSGI-INF/MANIFEST.MF"
             )
         }
     }

@@ -18,17 +18,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
-import com.tobioyelekan.dogbreed.core.designsystem.R
+import coil3.compose.AsyncImage
+import coil3.compose.LocalPlatformContext
+import coil3.request.ImageRequest
+import coil3.request.crossfade
+import com.tobioyelekan.dogbreed.core.designsystem.Res
+import com.tobioyelekan.dogbreed.core.designsystem.ic_dog_placeholder
+import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun SubBreedCard(imageUrl: String, subBreedName: String) {
     val model =
-        ImageRequest.Builder(LocalContext.current).data(imageUrl).crossfade(true).build()
+        ImageRequest.Builder(LocalPlatformContext.current)
+            .data(imageUrl)
+            .crossfade(true).build()
 
     Card(border = BorderStroke(1.dp, Color.Gray)) {
         Row {
@@ -36,8 +40,8 @@ fun SubBreedCard(imageUrl: String, subBreedName: String) {
                 model = model,
                 contentScale = ContentScale.Crop,
                 contentDescription = null,
-                placeholder = painterResource(id = R.drawable.ic_dog_placeholder),
-                error = painterResource(id = R.drawable.ic_dog_placeholder),
+                placeholder = painterResource(Res.drawable.ic_dog_placeholder),
+                error = painterResource(Res.drawable.ic_dog_placeholder),
                 modifier = Modifier.size(100.dp)
             )
 
@@ -48,7 +52,7 @@ fun SubBreedCard(imageUrl: String, subBreedName: String) {
 
                 Spacer(modifier = Modifier.height(15.dp))
 
-                Row (verticalAlignment = Alignment.CenterVertically){
+                Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(text = "Add as Favorite")
 
                     Spacer(modifier = Modifier.width(10.dp))

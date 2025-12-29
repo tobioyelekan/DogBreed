@@ -3,11 +3,12 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("dagger.hilt.android.plugin")
     id("com.google.devtools.ksp")
+    alias(libs.plugins.compose.compiler)
 }
 
 android {
     namespace = "com.tobioyelekan.dogbreed.feature.allbreeds"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         minSdk = 24
@@ -35,9 +36,6 @@ android {
     buildFeatures {
         compose = true
     }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.3"
-    }
     packaging {
         resources.excludes.add("META-INF/*")
     }
@@ -52,7 +50,7 @@ dependencies {
     implementation(libs.kotlin.coroutine)
     implementation(libs.hilt.core)
     ksp(libs.hilt.compiler)
-
+    implementation(libs.hilt.compose)
     implementation(projects.feature.allbreeds.domain)
     implementation(projects.feature.allbreeds.data)
     implementation(projects.core.designsystem)

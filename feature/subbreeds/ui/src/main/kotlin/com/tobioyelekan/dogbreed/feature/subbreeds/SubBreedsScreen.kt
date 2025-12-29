@@ -17,15 +17,15 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
+import coil3.compose.AsyncImage
+import coil3.request.ImageRequest
+import coil3.request.crossfade
 import com.tobioyelekan.dogbreed.core.designsystem.components.DogAppBar
 import com.tobioyelekan.dogbreed.core.designsystem.components.ErrorState
 import com.tobioyelekan.dogbreed.core.designsystem.components.LoadingIndicator
 import com.tobioyelekan.dogbreed.core.model.SubBreedImage
-import com.tobioyelekan.dogbreed.core.designsystem.R
 
 @Composable
 internal fun SubBreedsScreen(
@@ -75,7 +75,9 @@ private fun SubBreedsListContent(
     ) {
         items(subBreeds) { item ->
             val model =
-                ImageRequest.Builder(LocalContext.current).data(item.imageUrl).crossfade(true)
+                ImageRequest.Builder(LocalContext.current)
+                    .data(item.imageUrl)
+                    .crossfade(true)
                     .build()
 
             AsyncImage(

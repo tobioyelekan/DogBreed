@@ -9,14 +9,14 @@ import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.tobioyelekan.dogbreed.core.designsystem.components.DogBreedItem
 import com.tobioyelekan.dogbreed.core.designsystem.components.ErrorState
 import com.tobioyelekan.dogbreed.core.designsystem.components.LoadingIndicator
 import com.tobioyelekan.dogbreed.core.designsystem.theme.DogBreedTheme
 import com.tobioyelekan.dogbreed.core.model.DogBreed
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun AllBreedsScreen(

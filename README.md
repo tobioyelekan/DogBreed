@@ -15,7 +15,7 @@ To build this project, you require:
 
 * From Android Studio Giraffe upward
 * Gradle 8.0
-* Kotlin 1.9.20
+* Kotlin 2.2.20
 * Android Gradle Plugin 8.1.0
 
 ## Features 🎨
