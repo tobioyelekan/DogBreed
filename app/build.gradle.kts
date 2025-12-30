@@ -90,8 +90,6 @@ dependencies {
     androidTestImplementation(libs.hilt.android.testing)
     androidTestImplementation(libs.compose.ui.test)
     androidTestImplementation(libs.android.junit)
-    androidTestImplementation(projects.core.database)
-    androidTestImplementation(projects.core.network)
     androidTestImplementation(projects.core.testing)
 
     androidTestImplementation(libs.androidx.test.core)
@@ -100,4 +98,5 @@ dependencies {
 
     //TODO(Remove after replacing hilt with koin)
     implementation(projects.core.network.implementation)
+    implementation(projects.core.database.implementation)
 }

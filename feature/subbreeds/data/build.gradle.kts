@@ -39,7 +39,6 @@ dependencies {
     ksp(libs.hilt.compiler)
 
     implementation(projects.core.network.api)
-    implementation(projects.core.database)
     implementation(projects.core.common)
     implementation(projects.feature.subbreeds.domain)
 

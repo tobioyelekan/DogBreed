@@ -30,6 +30,8 @@ robolectric = "4.16"
 composeMultiplatform = "1.8.0"
 kotlin = "2.2.20"
 ktor = "3.0.1"
+sqlite = "2.5.2"
+ksp = "2.2.20-2.0.4"
 
 [libraries]
 core = { module = "androidx.core:core-ktx", version.ref = "core" }
@@ -67,7 +69,11 @@ lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", versi
 # Room
 room-core = { module = "androidx.room:room-ktx", version.ref = "room" }
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 room-testing = { module = "androidx.room:room-testing", version.ref = "room" }
+
+#Sqlite
+androidx-sqlite-bundled = { module = "androidx.sqlite:sqlite-bundled", version.ref = "sqlite" }
 
 # Hilt
 hilt-core = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
@@ -115,6 +121,8 @@ android-library = { id = "com.android.library" }
 kotlin-android = { id = "org.jetbrains.kotlin.android" }
 dagger-hilt = { id = "com.google.dagger.hilt.android" }
 kotlin-kapt = { id = "kotlin-kapt" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "composeMultiplatform" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+androidx-room = { id = "androidx.room", version.ref = "room" }

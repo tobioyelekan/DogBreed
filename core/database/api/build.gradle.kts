@@ -10,6 +10,9 @@ kotlin {
     iosSimulatorArm64()
 
     sourceSets {
-        commonMain {}
+        commonMain.dependencies {
+            api(libs.room.runtime)
+            implementation(projects.core.model)
+        }
     }
 }
