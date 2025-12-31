@@ -6,8 +6,8 @@ import com.tobioyelekan.dogbreed.core.common.util.toTitleCase
 import com.tobioyelekan.dogbreed.feature.subbreeds.navigation.breedNameArgs
 import com.tobioyelekan.dogbreed.feature.subbreeds.navigation.subBreedNameArgs
 import com.tobioyelekan.dogbreed.feature.subbreeds.usecase.GetSubBreedImageUseCase
-import com.tobioyelekan.dogbreed.testing.data.TestData.subBreedImages
-import com.tobioyelekan.dogbreed.testing.util.MainDispatcherRule
+import com.tobioyelekan.dogbreed.core.testing.TestData.subBreedImages
+import com.tobioyelekan.dogbreed.core.testing.MainDispatcherRule
 import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockk

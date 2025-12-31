@@ -17,9 +17,8 @@ kotlin {
         commonMain.dependencies {
             implementation(projects.core.database.api)
             implementation(libs.androidx.sqlite.bundled)
-        }
-        androidMain.dependencies {
-            implementation(libs.hilt.core)
+            implementation(project.dependencies.platform(libs.koin.bom))
+            implementation(libs.koin.core)
         }
     }
 }
@@ -52,7 +51,6 @@ android {
 
 dependencies {
     add("kspAndroid", libs.room.compiler)
-    add("kspAndroid", libs.hilt.compiler)
     add("kspIosSimulatorArm64", libs.room.compiler)
     add("kspIosX64", libs.room.compiler)
     add("kspIosArm64", libs.room.compiler)

@@ -43,9 +43,6 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlinOptions {
-        jvmTarget = "17"
-    }
     buildFeatures {
         buildConfig = true
         compose = true
@@ -72,8 +69,14 @@ dependencies {
     implementation(projects.feature.subbreeds.ui)
 
     implementation(projects.core.designsystem)
-
     implementation(libs.compose.icons.extended)
+
+    implementation(projects.core.network.implementation)
+    implementation(projects.core.database.implementation)
+
+    implementation(project.dependencies.platform(libs.koin.bom))
+    implementation(libs.koin.android)
+    implementation(libs.koin.core)
 
     implementation(libs.hilt.compose)
     implementation(libs.hilt.core)
@@ -95,8 +98,4 @@ dependencies {
     androidTestImplementation(libs.androidx.test.core)
     androidTestImplementation(libs.androidx.test.rules)
     androidTestImplementation(libs.espresso.core)
-
-    //TODO(Remove after replacing hilt with koin)
-    implementation(projects.core.network.implementation)
-    implementation(projects.core.database.implementation)
 }

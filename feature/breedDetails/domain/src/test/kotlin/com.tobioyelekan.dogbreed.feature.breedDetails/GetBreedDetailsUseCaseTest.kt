@@ -2,7 +2,7 @@ package com.tobioyelekan.dogbreed.feature.breedDetails
 
 import com.tobioyelekan.dogbreed.feature.breedDetails.repository.DogBreedDetailRepository
 import com.tobioyelekan.dogbreed.feature.breedDetails.usecase.GetBreedDetailsUseCase
-import com.tobioyelekan.dogbreed.testing.data.TestData.dogBreeds
+import com.tobioyelekan.dogbreed.core.testing.TestData.dogBreeds
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.flow.first

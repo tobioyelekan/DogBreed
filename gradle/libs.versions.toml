@@ -1,7 +1,7 @@
 [versions]
 core = "1.9.0"
 extended-icon = "1.6.0-beta01"
-navigation = "2.7.5"
+navigationCompose = "2.9.0-beta01"
 lifecycle-runtime = "2.6.2"
 compose-activity = "1.8.0"
 compose-ui = "1.5.0"
@@ -32,14 +32,24 @@ kotlin = "2.2.20"
 ktor = "3.0.1"
 sqlite = "2.5.2"
 ksp = "2.2.20-2.0.4"
+koin-bom = "4.1.0"
 
 [libraries]
 core = { module = "androidx.core:core-ktx", version.ref = "core" }
 
+#Koin
+koin-bom = { group = "io.insert-koin", name = "koin-bom", version.ref = "koin-bom" }
+koin-compose = { group = "io.insert-koin", name = "koin-compose" }
+koin-core = { group = "io.insert-koin", name = "koin-core" }
+koin-android = { group = "io.insert-koin", name = "koin-android" }
+koin-test-junit4 = { group = "io.insert-koin", name = "koin-test-junit4" }
+koin-test = { group = "io.insert-koin", name = "koin-test" }
+koin-compose-viewmodel = { group = "io.insert-koin", name = "koin-compose-viewmodel" }
+
 # Jetpack Compose
 compose-icons-core = { module = "androidx.compose.material:material-icons-core", version.ref = "compose-ui" }
 compose-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "extended-icon" }
-compose-navigation = { module = "androidx.navigation:navigation-compose", version.ref = "navigation" }
+navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 compose-lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycle-runtime" }
 compose-activity = { module = "androidx.activity:activity-compose", version.ref = "compose-activity" }
 compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose-ui" }

@@ -2,7 +2,7 @@ package com.tobioyelekan.dogbreed.feature.subbreeds
 
 import com.tobioyelekan.dogbreed.feature.subbreeds.repository.DogSubBreedRepository
 import com.tobioyelekan.dogbreed.feature.subbreeds.usecase.GetSubBreedImageUseCase
-import com.tobioyelekan.dogbreed.testing.data.TestData.subBreedImages
+import com.tobioyelekan.dogbreed.core.testing.TestData.subBreedImages
 import io.mockk.coEvery
 import io.mockk.mockk
 import junit.framework.TestCase.assertTrue

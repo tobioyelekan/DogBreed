@@ -7,8 +7,8 @@ import com.tobioyelekan.dogbreed.feature.breedDetails.DogBreedDetailsViewModel.*
 import com.tobioyelekan.dogbreed.feature.breedDetails.usecase.AddFavoriteBreedUseCase
 import com.tobioyelekan.dogbreed.feature.breedDetails.usecase.DeleteFavoriteBreedUseCase
 import com.tobioyelekan.dogbreed.feature.breedDetails.usecase.GetBreedDetailsUseCase
-import com.tobioyelekan.dogbreed.testing.data.TestData.dogBreeds
-import com.tobioyelekan.dogbreed.testing.util.MainDispatcherRule
+import com.tobioyelekan.dogbreed.core.testing.TestData.dogBreeds
+import com.tobioyelekan.dogbreed.core.testing.MainDispatcherRule
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.every

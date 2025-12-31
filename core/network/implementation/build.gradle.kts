@@ -1,8 +1,6 @@
 plugins {
     kotlin("multiplatform")
     alias(libs.plugins.android.library)
-    id("com.google.devtools.ksp")
-    id("dagger.hilt.android.plugin")
 }
 
 kotlin {
@@ -17,10 +15,11 @@ kotlin {
         commonMain.dependencies {
             implementation(projects.core.network.api)
             implementation(libs.bundles.ktor)
+            implementation(project.dependencies.platform(libs.koin.bom))
+            implementation(libs.koin.core)
         }
         androidMain.dependencies {
             implementation(libs.ktor.okhttp)
-            implementation(libs.hilt.core)
         }
         iosMain.dependencies {
             implementation(libs.ktor.darwin)
@@ -53,8 +52,4 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-}
-
-dependencies {
-    add("kspAndroid", libs.hilt.compiler)
 }
