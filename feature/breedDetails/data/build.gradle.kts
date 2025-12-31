@@ -1,47 +1,24 @@
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
-    id("com.google.devtools.ksp")
-    id("dagger.hilt.android.plugin")
+    kotlin("multiplatform")
 }
 
-android {
-    namespace = "com.tobioyelekan.dogbreed.data.allbreeds"
-    compileSdk = 35
+kotlin {
+    jvmToolchain(17)
+    jvm()
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
 
-    defaultConfig {
-        minSdk = 24
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
-    }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+    sourceSets {
+        commonMain.dependencies {
+            implementation(projects.core.database.api)
+            implementation(projects.core.common)
+            implementation(projects.feature.breedDetails.domain)
+            implementation(project.dependencies.platform(libs.koin.bom))
+            implementation(libs.koin.core)
+        }
+        jvmTest.dependencies {
+            implementation(projects.core.testing)
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-    kotlinOptions {
-        jvmTarget = "17"
-    }
-}
-
-dependencies {
-    implementation(libs.hilt.core)
-    ksp(libs.hilt.compiler)
-
-    implementation(projects.core.database.api)
-    implementation(projects.core.common)
-    implementation(projects.feature.breedDetails.domain)
-
-    testImplementation(projects.core.testing)
-    testImplementation(kotlin("test"))
 }
