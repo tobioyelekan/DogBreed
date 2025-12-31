@@ -6,6 +6,10 @@ import org.koin.dsl.module
 
 val allBreedDataModule = module {
     single<DogBreedsRepository> {
-        DogBreedsRepositoryImpl(get(), get())
+        DogBreedsRepositoryImpl(
+            dogBreedDao = get(),
+            dogBreedService = get(),
+            ioDispatcher = get()
+        )
     }
 }

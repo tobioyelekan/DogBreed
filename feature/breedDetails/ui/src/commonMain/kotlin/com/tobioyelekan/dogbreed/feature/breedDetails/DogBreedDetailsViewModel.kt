@@ -8,8 +8,6 @@ import com.tobioyelekan.dogbreed.feature.breedDetails.navigation.breedNameArgs
 import com.tobioyelekan.dogbreed.feature.breedDetails.usecase.AddFavoriteBreedUseCase
 import com.tobioyelekan.dogbreed.feature.breedDetails.usecase.DeleteFavoriteBreedUseCase
 import com.tobioyelekan.dogbreed.feature.breedDetails.usecase.GetBreedDetailsUseCase
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -20,14 +18,12 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class DogBreedDetailsViewModel(
     savedStateHandle: SavedStateHandle,
     getBreedDetailsUseCase: GetBreedDetailsUseCase,
     private val addFavoriteBreedUseCase: AddFavoriteBreedUseCase,
     private val deleteFavoriteBreedUseCase: DeleteFavoriteBreedUseCase,
-    private val ioDispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
     private val breedName =
@@ -60,7 +56,7 @@ class DogBreedDetailsViewModel(
             )
 
     fun onFavoriteClicked(isFavorite: Boolean) {
-        viewModelScope.launch(ioDispatcher) {
+        viewModelScope.launch {
             val result = if (isFavorite) {
                 deleteFavoriteBreedUseCase(breedName)
             } else {
@@ -69,15 +65,11 @@ class DogBreedDetailsViewModel(
 
             result
                 .onSuccess {
-                    withContext(Dispatchers.Main) {
-                        val msg = if (isFavorite) "Removed as favorite" else "Added as favorite"
-                        _actionState.emit(ActionState.ShowMessage(msg))
-                    }
+                    val msg = if (isFavorite) "Removed as favorite" else "Added as favorite"
+                    _actionState.emit(ActionState.ShowMessage(msg))
                 }
                 .onFailure {
-                    withContext(Dispatchers.Main) {
-                        _actionState.emit(ActionState.ShowMessage("Something went wrong"))
-                    }
+                    _actionState.emit(ActionState.ShowMessage("Something went wrong"))
                 }
         }
     }

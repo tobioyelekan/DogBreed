@@ -15,11 +15,11 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation(libs.kotlin.coroutine)
             implementation(projects.feature.allbreeds.domain)
             implementation(projects.feature.allbreeds.data)
             implementation(projects.core.designsystem)
             implementation(projects.core.common)
+            implementation(projects.core.coroutine)
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin.core)
             implementation(libs.koin.compose)

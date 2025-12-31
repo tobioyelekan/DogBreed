@@ -6,18 +6,21 @@ import com.tobioyelekan.dogbreed.core.model.DogBreed
 import com.tobioyelekan.dogbreed.core.network.api.DogBreedApiService
 import com.tobioyelekan.dogbreed.feature.allbreeds.mapper.toEntity
 import com.tobioyelekan.dogbreed.feature.allbreeds.util.mergeEntities
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.withContext
 import kotlin.collections.ifEmpty
 
 class DogBreedsRepositoryImpl(
     private val dogBreedDao: DogBreedDao,
-    private val dogBreedService: DogBreedApiService
+    private val dogBreedService: DogBreedApiService,
+    private val ioDispatcher: CoroutineDispatcher
 ) : DogBreedsRepository {
 
-    override suspend fun getAllBreeds(): Result<List<DogBreed>> {
-        return runCatching {
+    override suspend fun getAllBreeds(): Result<List<DogBreed>> = withContext(ioDispatcher){
+        return@withContext runCatching {
             val dogBreedEntities = coroutineScope {
                 val response = dogBreedService.getAllDogBreeds()
                 response.getOrThrow().breeds.map { breed ->

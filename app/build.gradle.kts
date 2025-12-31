@@ -73,6 +73,7 @@ dependencies {
 
     implementation(projects.core.network.implementation)
     implementation(projects.core.database.implementation)
+    implementation(projects.core.coroutine)
 
     implementation(project.dependencies.platform(libs.koin.bom))
     implementation(libs.koin.android)

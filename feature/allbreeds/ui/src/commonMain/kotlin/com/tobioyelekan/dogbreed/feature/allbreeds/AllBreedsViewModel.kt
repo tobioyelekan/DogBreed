@@ -7,11 +7,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.CoroutineDispatcher
 
 class AllBreedsViewModel(
     private val getDogBreedListUseCase: GetDogBreedListUseCase,
-    private val ioDispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<AllBreedsUiState>(AllBreedsUiState.Loading)
@@ -22,7 +20,7 @@ class AllBreedsViewModel(
     }
 
     private fun getDogBreeds() {
-        viewModelScope.launch(ioDispatcher) {
+        viewModelScope.launch {
             getDogBreedListUseCase()
                 .onSuccess { value ->
                     _uiState.update { AllBreedsUiState.Success(value) }

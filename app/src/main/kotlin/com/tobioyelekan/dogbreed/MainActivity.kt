@@ -16,9 +16,7 @@ import com.tobioyelekan.dogbreed.navigation.tabHostDestination
 import com.tobioyelekan.dogbreed.feature.breedDetails.navigation.breedDetailsRoute
 import com.tobioyelekan.dogbreed.feature.subbreeds.navigation.navigateToSubBreed
 import com.tobioyelekan.dogbreed.feature.subbreeds.navigation.subBreedRoute
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
