@@ -12,6 +12,7 @@ expect val platformHttpClient: HttpClient
 
 fun httpClient(): HttpClient =
     platformHttpClient.config {
+        expectSuccess = false
         defaultRequest { url(BASE_URL) }
         install(ContentNegotiation) {
             json(Json { ignoreUnknownKeys = true })

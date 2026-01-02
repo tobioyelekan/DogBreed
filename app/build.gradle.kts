@@ -1,9 +1,74 @@
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-    id("dagger.hilt.android.plugin")
-    id("com.google.devtools.ksp")
-        alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.jetbrainsCompose)
+    alias(libs.plugins.kotlinMultiplatform)
+    alias(libs.plugins.kotlinxSerialization)
+    alias(libs.plugins.compose.compiler)
+}
+
+kotlin {
+    androidTarget {
+        @OptIn(ExperimentalKotlinGradlePluginApi::class)
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_17)
+        }
+    }
+    jvm()
+
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach { iosTarget ->
+        iosTarget.binaries.framework {
+            baseName = "ComposeApp"
+            isStatic = true
+        }
+    }
+
+    sourceSets {
+        commonMain.dependencies {
+            implementation(projects.feature.allbreeds.ui)
+            implementation(projects.feature.breedDetails.ui)
+            implementation(projects.feature.favorites.ui)
+            implementation(projects.feature.subbreeds.ui)
+
+            implementation(projects.core.designsystem)
+            implementation(libs.navigation.compose)
+            implementation(projects.core.network.implementation)
+            implementation(projects.core.database.implementation)
+            implementation(projects.core.coroutine)
+
+            implementation(project.dependencies.platform(libs.koin.bom))
+            implementation(libs.koin.core)
+        }
+        androidMain.dependencies {
+            implementation(libs.koin.android)
+            implementation(libs.compose.activity)
+        }
+        androidUnitTest.dependencies {
+            implementation(libs.androidx.test.core)
+            implementation(libs.androidx.test.runner)
+            implementation(libs.compose.ui.test)
+            implementation(libs.android.junit)
+            implementation(projects.core.testing)
+
+            implementation(libs.androidx.test.core)
+            implementation(libs.androidx.test.rules)
+            implementation(libs.espresso.core)
+        }
+        androidInstrumentedTest.dependencies {
+
+        }
+    }
+}
+
+compose.resources {
+    packageOfResClass = "com.tobioyelekan.dogbreed"
+    generateResClass = auto
 }
 
 android {
@@ -63,40 +128,5 @@ android {
 }
 
 dependencies {
-    implementation(projects.feature.allbreeds.ui)
-    implementation(projects.feature.breedDetails.ui)
-    implementation(projects.feature.favorites.ui)
-    implementation(projects.feature.subbreeds.ui)
-
-    implementation(projects.core.designsystem)
-    implementation(libs.compose.icons.extended)
-
-    implementation(projects.core.network.implementation)
-    implementation(projects.core.database.implementation)
-    implementation(projects.core.coroutine)
-
-    implementation(project.dependencies.platform(libs.koin.bom))
-    implementation(libs.koin.android)
-    implementation(libs.koin.core)
-
-    implementation(libs.hilt.compose)
-    implementation(libs.hilt.core)
-    implementation(libs.androidx.test.core)
-    ksp(libs.hilt.compiler)
-
-    kspTest(libs.hilt.compiler)
-    kspAndroidTest(libs.hilt.compiler)
-
     debugImplementation(libs.compose.test.manifest)
-    debugImplementation(libs.hilt.android.testing)
-
-    androidTestImplementation(libs.androidx.test.runner)
-    androidTestImplementation(libs.hilt.android.testing)
-    androidTestImplementation(libs.compose.ui.test)
-    androidTestImplementation(libs.android.junit)
-    androidTestImplementation(projects.core.testing)
-
-    androidTestImplementation(libs.androidx.test.core)
-    androidTestImplementation(libs.androidx.test.rules)
-    androidTestImplementation(libs.espresso.core)
 }

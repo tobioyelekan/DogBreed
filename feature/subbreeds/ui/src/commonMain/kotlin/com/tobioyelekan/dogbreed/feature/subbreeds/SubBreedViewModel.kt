@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import com.tobioyelekan.dogbreed.core.common.util.toTitleCase
+import com.tobioyelekan.dogbreed.core.common.toTitleCase
 import com.tobioyelekan.dogbreed.feature.subbreeds.navigation.breedNameArgs
 import com.tobioyelekan.dogbreed.feature.subbreeds.navigation.subBreedNameArgs
 import com.tobioyelekan.dogbreed.feature.subbreeds.usecase.GetSubBreedImageUseCase

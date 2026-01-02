@@ -22,8 +22,8 @@ interface DogBreedDao {
     fun getFavoriteBreeds(): Flow<List<DogBreedEntity>>
 
     @Query("UPDATE breed_table SET isFavorite=:isFavorite WHERE name =:breedName")
-    fun updateBreed(breedName: String, isFavorite: Boolean)
+    suspend fun updateBreed(breedName: String, isFavorite: Boolean)
 
     @Query("DELETE FROM breed_table")
-    fun nukeTable()
+    suspend fun nukeTable()
 }

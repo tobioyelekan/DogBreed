@@ -1,6 +1,5 @@
 package com.tobioyelekan.dogbreed.core.common
 
-import com.tobioyelekan.dogbreed.core.common.util.toTitleCase
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

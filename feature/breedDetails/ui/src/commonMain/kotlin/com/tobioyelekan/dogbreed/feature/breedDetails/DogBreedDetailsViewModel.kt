@@ -3,7 +3,7 @@ package com.tobioyelekan.dogbreed.feature.breedDetails
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.tobioyelekan.dogbreed.core.common.util.toTitleCase
+import com.tobioyelekan.dogbreed.core.common.toTitleCase
 import com.tobioyelekan.dogbreed.feature.breedDetails.navigation.breedNameArgs
 import com.tobioyelekan.dogbreed.feature.breedDetails.usecase.AddFavoriteBreedUseCase
 import com.tobioyelekan.dogbreed.feature.breedDetails.usecase.DeleteFavoriteBreedUseCase

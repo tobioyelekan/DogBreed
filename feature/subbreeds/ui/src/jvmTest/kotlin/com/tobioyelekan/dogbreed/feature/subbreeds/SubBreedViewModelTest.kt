@@ -2,7 +2,7 @@ package com.tobioyelekan.dogbreed.feature.subbreeds
 
 import androidx.lifecycle.SavedStateHandle
 import app.cash.turbine.test
-import com.tobioyelekan.dogbreed.core.common.util.toTitleCase
+import com.tobioyelekan.dogbreed.core.common.toTitleCase
 import com.tobioyelekan.dogbreed.feature.subbreeds.navigation.breedNameArgs
 import com.tobioyelekan.dogbreed.feature.subbreeds.navigation.subBreedNameArgs
 import com.tobioyelekan.dogbreed.feature.subbreeds.usecase.GetSubBreedImageUseCase

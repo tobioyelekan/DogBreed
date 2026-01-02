@@ -1,0 +1,43 @@
+package com.tobioyelekan.dogbreed
+
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.tobioyelekan.dogbreed.core.designsystem.theme.DogBreedTheme
+import com.tobioyelekan.dogbreed.feature.breedDetails.navigation.breedDetailsRoute
+import com.tobioyelekan.dogbreed.feature.subbreeds.navigation.navigateToSubBreed
+import com.tobioyelekan.dogbreed.feature.subbreeds.navigation.subBreedRoute
+import com.tobioyelekan.dogbreed.navigation.DogBreedMainTabComponent
+import com.tobioyelekan.dogbreed.navigation.tabHostDestination
+
+@Composable
+fun App() {
+        DogBreedTheme {
+            val navController = rememberNavController()
+            Surface(
+                modifier = Modifier.fillMaxSize(),
+                color = MaterialTheme.colorScheme.background
+            ) {
+                NavHost(
+                    navController = navController,
+                    startDestination = tabHostDestination
+                ) {
+                    composable(tabHostDestination) {
+                        DogBreedMainTabComponent(mainNavController = navController)
+                    }
+
+                    breedDetailsRoute(
+                        onSubBreedClicked = navController::navigateToSubBreed,
+                        onBackClicked = navController::popBackStack
+                    )
+
+                    subBreedRoute(navController::popBackStack)
+                }
+        }
+    }
+}

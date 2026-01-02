@@ -13,11 +13,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
+import coil3.compose.LocalPlatformContext
 import coil3.request.ImageRequest
 import coil3.request.crossfade
 import com.tobioyelekan.dogbreed.core.designsystem.Res
@@ -76,7 +76,7 @@ private fun SubBreedsListContent(
     ) {
         items(subBreeds) { item ->
             val model =
-                ImageRequest.Builder(LocalContext.current)
+                ImageRequest.Builder(LocalPlatformContext.current)
                     .data(item.imageUrl)
                     .crossfade(true)
                     .build()

@@ -33,7 +33,7 @@ kotlin {
     }
 }
 
-compose.resources{
+compose.resources {
     publicResClass = true
     packageOfResClass = "com.tobioyelekan.dogbreed.core.designsystem"
     generateResClass = auto
