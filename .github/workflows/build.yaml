@@ -24,6 +24,9 @@ jobs:
           java-version: 17
           distribution: 'zulu'
 
+      - name: Run JVM Unit Tests
+        run: ./gradlew jvmTest --continue
+
       - name: Run Debug Tests
         run: ./gradlew testDebugUnitTest --continue
 
