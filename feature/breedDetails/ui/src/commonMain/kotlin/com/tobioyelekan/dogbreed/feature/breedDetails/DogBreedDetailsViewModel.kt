@@ -19,7 +19,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class DogBreedDetailsViewModel(
+internal class DogBreedDetailsViewModel(
     savedStateHandle: SavedStateHandle,
     getBreedDetailsUseCase: GetBreedDetailsUseCase,
     private val addFavoriteBreedUseCase: AddFavoriteBreedUseCase,

@@ -18,7 +18,7 @@ import com.tobioyelekan.dogbreed.core.model.DogBreed
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
-fun AllBreedsScreen(
+internal fun AllBreedsScreen(
     onBreedClicked: (String) -> Unit,
     viewModel: AllBreedsViewModel
 ) {

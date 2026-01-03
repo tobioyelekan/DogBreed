@@ -26,13 +26,9 @@ kotlin {
             implementation(libs.navigation.compose)
             implementation(libs.koin.compose.viewmodel)
         }
-        commonTest.dependencies {
+        androidUnitTest.dependencies {
             implementation(projects.core.testing)
-        }
-        androidUnitTest.dependencies{
-            implementation(libs.robolectric)
-            implementation(libs.compose.ui.test)
-            implementation(libs.compose.test.manifest)
+            implementation(projects.core.testing.ui)
         }
     }
 }
@@ -58,8 +54,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     packaging {
         resources.excludes.add("META-INF/*")

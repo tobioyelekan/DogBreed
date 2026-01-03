@@ -9,6 +9,7 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.tobioyelekan.dogbreed.core.testing.TestData.subBreedImages
+import com.tobioyelekan.dogbreed.core.testing.ui.setContentWithTheme
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -20,46 +21,44 @@ class SubBreedScreenTest {
 
     @Test
     fun loadingIndicatorShouldShow_andAppBarTitleShows_whenScreenIsInitiallyOpens() {
-        composeTestRule.setContent {
-            SubBreedScreenContent(
-                appBarTitle = "Subbreed",
-                viewState = SubBreedUIState.Loading,
-                onBackClicked = {}
-            )
+        setSubBreedScreenContent(viewState = SubBreedUIState.Loading)
+
+        with(composeTestRule) {
+            onNodeWithTag("loader").assertIsDisplayed()
+            onNodeWithText("Subbreed").assertIsDisplayed()
         }
-
-        composeTestRule.onNodeWithTag("loader")
-            .assertIsDisplayed()
-
-        composeTestRule.onNodeWithText("Subbreed")
-            .assertIsDisplayed()
     }
 
     @Test
     fun ensureListOfSubbreedsIsDisplayed_whenSuccessStateIsReceived() {
-        composeTestRule.setContent {
-            SubBreedScreenContent(
-                appBarTitle = "Subbreed",
-                viewState = SubBreedUIState.Success(subBreedImages),
-                onBackClicked = {}
-            )
-        }
+        setSubBreedScreenContent(viewState = SubBreedUIState.Success(subBreedImages))
 
-        composeTestRule.onAllNodesWithTag("subBreedImageItem")
-            .assertCountEquals(subBreedImages.size)
+        with(composeTestRule) {
+            onAllNodesWithTag("subBreedImageItem")
+                .assertCountEquals(subBreedImages.size)
+        }
     }
 
     @Test
     fun showError_whenErrorStateIsReceived() {
-        composeTestRule.setContent {
+        setSubBreedScreenContent(viewState = SubBreedUIState.Error("Something went wrong"))
+
+        with(composeTestRule) {
+            onNodeWithText("Something went wrong").assertIsDisplayed()
+        }
+    }
+
+    private fun setSubBreedScreenContent(
+        appBarTitle: String = "Subbreed",
+        viewState: SubBreedUIState,
+        onBackClicked: () -> Unit = {}
+    ) {
+        composeTestRule.setContentWithTheme {
             SubBreedScreenContent(
-                appBarTitle = "Subbreed",
-                viewState = SubBreedUIState.Error("Something went wrong"),
-                onBackClicked = {}
+                appBarTitle = appBarTitle,
+                viewState = viewState,
+                onBackClicked = onBackClicked
             )
         }
-
-        composeTestRule.onNodeWithText("Something went wrong")
-            .assertIsDisplayed()
     }
 }

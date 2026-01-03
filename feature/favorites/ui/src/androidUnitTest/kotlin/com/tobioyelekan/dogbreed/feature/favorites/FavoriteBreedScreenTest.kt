@@ -1,4 +1,4 @@
-package com.tobioyelekan.dogbreed.feature.allbreeds
+package com.tobioyelekan.dogbreed.feature.favorites
 
 import androidx.activity.ComponentActivity
 import androidx.compose.ui.test.assertCountEquals
@@ -16,13 +16,15 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-class AllBreedScreenTest {
+class FavoriteBreedScreenTest {
     @get:Rule
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()
 
+    private val favoriteDogBreeds = dogBreeds.filter { it.isFavorite }
+
     @Test
     fun loadingIndicatorShouldShow_whenScreenIsInitiallyOpens() {
-        setAllBreedScreenContent(viewState = AllBreedsUiState.Loading)
+        setFavoriteBreedScreenContent(viewState = FavoriteBreedUIState.Loading)
 
         with(composeTestRule) {
             onNodeWithTag("loader").assertIsDisplayed()
@@ -31,17 +33,27 @@ class AllBreedScreenTest {
 
     @Test
     fun shouldShowListOfItems_whenSuccessStateIsReceived() {
-        setAllBreedScreenContent(viewState = AllBreedsUiState.Success(dogBreeds))
+        setFavoriteBreedScreenContent(viewState = FavoriteBreedUIState.Success(favoriteDogBreeds))
 
         with(composeTestRule) {
             onNodeWithTag("loader").assertIsNotDisplayed()
-            onAllNodesWithTag("Item").assertCountEquals(dogBreeds.size)
+            onAllNodesWithTag("Item").assertCountEquals(favoriteDogBreeds.size)
+        }
+    }
+
+    @Test
+    fun shouldShowEmptyState_whenEmptyStateIsReceived() {
+        setFavoriteBreedScreenContent(viewState = FavoriteBreedUIState.Success(emptyList()))
+
+        with(composeTestRule) {
+            onNodeWithTag("loader").assertIsNotDisplayed()
+            onNodeWithTag("emptyState").assertIsDisplayed()
         }
     }
 
     @Test
     fun shouldShowError_whenErrorStateIsReceived() {
-        setAllBreedScreenContent(viewState = AllBreedsUiState.Error("Something went wrong"))
+        setFavoriteBreedScreenContent(viewState = FavoriteBreedUIState.Error("Something went wrong"))
 
         with(composeTestRule) {
             onNodeWithTag("loader").assertIsNotDisplayed()
@@ -49,12 +61,12 @@ class AllBreedScreenTest {
         }
     }
 
-    private fun setAllBreedScreenContent(
-        viewState: AllBreedsUiState,
+    private fun setFavoriteBreedScreenContent(
+        viewState: FavoriteBreedUIState,
         onBreedClicked: (String) -> Unit = {}
     ) {
         composeTestRule.setContentWithTheme {
-            AllBreedScreenContent(
+            FavoriteBreedScreenContent(
                 viewState = viewState,
                 onBreedClicked = onBreedClicked
             )

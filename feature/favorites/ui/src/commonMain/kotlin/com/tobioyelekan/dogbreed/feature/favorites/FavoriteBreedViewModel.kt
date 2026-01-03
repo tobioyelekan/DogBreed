@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 
-class FavoriteBreedViewModel(
+internal class FavoriteBreedViewModel(
     getFavoriteBreedsUseCase: GetFavoriteBreedsUseCase
 ) : ViewModel() {
 

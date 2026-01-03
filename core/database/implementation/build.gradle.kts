@@ -20,6 +20,11 @@ kotlin {
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin.core)
         }
+        androidUnitTest.dependencies {
+            implementation(projects.core.testing)
+            implementation(libs.android.junit)
+            implementation(libs.robolectric)
+        }
     }
 }
 

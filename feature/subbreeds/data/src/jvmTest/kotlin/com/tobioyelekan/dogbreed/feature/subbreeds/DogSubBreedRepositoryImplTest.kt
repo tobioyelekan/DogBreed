@@ -24,7 +24,7 @@ class DogSubBreedRepositoryImplTest {
                 any(),
                 any()
             )
-        } returns sampleResponse
+        } returns Result.success(sampleResponse)
 
         //when
         val actual = subject.getSubBreeds("breedName", "subBreedName")
@@ -43,7 +43,7 @@ class DogSubBreedRepositoryImplTest {
                 any(),
                 any()
             )
-        } throws Exception("something went wrong")
+        } returns Result.failure(Exception("something went wrong"))
 
         //when
         val actual = subject.getSubBreeds("breedName", "subBreedName")

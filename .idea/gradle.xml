@@ -23,6 +23,7 @@
             <option value="$PROJECT_DIR$/core/network/api" />
             <option value="$PROJECT_DIR$/core/network/implementation" />
             <option value="$PROJECT_DIR$/core/testing" />
+            <option value="$PROJECT_DIR$/core/testing/ui" />
             <option value="$PROJECT_DIR$/feature" />
             <option value="$PROJECT_DIR$/feature/allbreeds" />
             <option value="$PROJECT_DIR$/feature/allbreeds/data" />

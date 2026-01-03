@@ -9,17 +9,23 @@ import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
 import junit.framework.TestCase.assertTrue
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import kotlin.test.assertEquals
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class DogBreedDetailsRepositoryImplTest {
     private val dogBreedDao: DogBreedDao = mockk()
-    private val subject = DogBreedDetailsRepositoryImpl(dogBreedDao)
+    private val subject = DogBreedDetailsRepositoryImpl(
+        dogBreedDao = dogBreedDao,
+        ioDispatcher = UnconfinedTestDispatcher()
+    )
 
     @Test
     fun `getBreedDetails returns breed`() = runTest {

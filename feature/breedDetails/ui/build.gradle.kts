@@ -27,13 +27,9 @@ kotlin {
             implementation(libs.navigation.compose)
             implementation(libs.koin.compose.viewmodel)
         }
-        commonTest.dependencies {
+        androidUnitTest.dependencies {
             implementation(projects.core.testing)
-        }
-        androidUnitTest.dependencies{
-            implementation(libs.robolectric)
-            implementation(libs.compose.ui.test)
-            implementation(libs.compose.test.manifest)
+            implementation(projects.core.testing.ui)
         }
     }
 }

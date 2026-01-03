@@ -3,6 +3,7 @@ package com.tobioyelekan.dogbreed.feature.allbreeds.repository
 import com.tobioyelekan.dogbreed.core.database.dao.DogBreedDao
 import com.tobioyelekan.dogbreed.core.database.entity.DogBreedEntity
 import com.tobioyelekan.dogbreed.core.database.entity.toDomainModel
+import com.tobioyelekan.dogbreed.core.network.api.DogBreedApiService
 import com.tobioyelekan.dogbreed.core.network.model.BreedImageApiModel
 import com.tobioyelekan.dogbreed.core.network.model.DogBreedsApiModel
 import com.tobioyelekan.dogbreed.feature.allbreeds.mapper.toEntity
@@ -12,15 +13,22 @@ import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
 import junit.framework.TestCase.assertTrue
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import kotlin.test.assertEquals
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class DogBreedsRepositoryImplTest {
     private val dogBreedService: DogBreedApiService = mockk()
     private val dogBreedDao: DogBreedDao = mockk(relaxed = true)
 
-    private val subject = DogBreedsRepositoryImpl(dogBreedDao, dogBreedService)
+    private val subject = DogBreedsRepositoryImpl(
+        dogBreedDao = dogBreedDao,
+        dogBreedService = dogBreedService,
+        ioDispatcher = UnconfinedTestDispatcher()
+    )
 
     @Test
     fun `getAllBreeds handles api success and returns dogBreeds`() = runTest {
@@ -28,10 +36,10 @@ class DogBreedsRepositoryImplTest {
         val sampleImageUrl = "imageUrl"
 
         coEvery { dogBreedService.getAllDogBreeds() } returns
-                DogBreedsApiModel(dogBreedApiResponseTestData)
+                Result.success(DogBreedsApiModel(dogBreedApiResponseTestData))
 
         coEvery { dogBreedService.getBreedRandomImage(any()) } returns
-                 BreedImageApiModel(sampleImageUrl)
+                Result.success(BreedImageApiModel(sampleImageUrl))
 
         //when
         val actual = subject.getAllBreeds()
@@ -41,6 +49,7 @@ class DogBreedsRepositoryImplTest {
             dogBreedApiResponseTestData
                 .map { it.toEntity(sampleImageUrl) }
                 .map { it.toDomainModel() }
+
         assertEquals(Result.success(dogBreedDomain), actual)
     }
 
@@ -50,9 +59,9 @@ class DogBreedsRepositoryImplTest {
         val sampleImageUrl = "imageUrl"
 
         coEvery { dogBreedService.getAllDogBreeds() } returns
-                 DogBreedsApiModel(dogBreedApiResponseTestData)
+                Result.success(DogBreedsApiModel(dogBreedApiResponseTestData))
         coEvery { dogBreedService.getBreedRandomImage(any()) } returns
-                BreedImageApiModel(sampleImageUrl)
+                Result.success(BreedImageApiModel(sampleImageUrl))
 
         //when
         subject.getAllBreeds()
@@ -64,30 +73,32 @@ class DogBreedsRepositoryImplTest {
     }
 
     @Test
-    fun `getAllBreeds handles logic to retain previously liked breeds after api success`() = runTest {
-        //given
-        val dogBreedEntities = dogBreedApiResponseTestData.map { it.toEntity(sampleImageUrl) }
+    fun `getAllBreeds handles logic to retain previously liked breeds after api success`() =
+        runTest {
+            //given
+            val dogBreedEntities = dogBreedApiResponseTestData.map { it.toEntity(sampleImageUrl) }
 
-        coEvery { dogBreedService.getAllDogBreeds() } returns
-                DogBreedsApiModel(dogBreedApiResponseTestData)
+            coEvery { dogBreedService.getAllDogBreeds() } returns
+                    Result.success(DogBreedsApiModel(dogBreedApiResponseTestData))
 
-        coEvery { dogBreedService.getBreedRandomImage(any()) } returns
-                BreedImageApiModel(sampleImageUrl)
+            coEvery { dogBreedService.getBreedRandomImage(any()) } returns
+                    Result.success(BreedImageApiModel(sampleImageUrl))
 
-        coEvery { dogBreedDao.getAllBreeds() } returns cachedEntities
+            coEvery { dogBreedDao.getAllBreeds() } returns cachedEntities
 
-        //when
-        val actual = subject.getAllBreeds()
+            //when
+            val actual = subject.getAllBreeds()
 
-        //then
-        val expectedDogBreedDomains = mergeEntities(dogBreedEntities, cachedEntities).map { it.toDomainModel() }
-        assertEquals(Result.success(expectedDogBreedDomains), actual)
-    }
+            //then
+            val expectedDogBreedDomains =
+                mergeEntities(dogBreedEntities, cachedEntities).map { it.toDomainModel() }
+            assertEquals(Result.success(expectedDogBreedDomains), actual)
+        }
 
     @Test
     fun `getAllBreeds handles api exception and fallbacks to database`() = runTest {
         //given
-        coEvery { dogBreedService.getAllDogBreeds() } throws Exception("something went wrong")
+        coEvery { dogBreedService.getAllDogBreeds() } returns Result.failure(Exception("something went wrong"))
         coEvery { dogBreedDao.getAllBreeds() } returns cachedEntities
 
         //when
@@ -102,7 +113,8 @@ class DogBreedsRepositoryImplTest {
     @Test
     fun `getAllBreeds handles api error, throw error no database fallback`() = runTest {
         //given
-        coEvery { dogBreedService.getAllDogBreeds() } throws Exception("something went wrong")
+        coEvery { dogBreedService.getAllDogBreeds() } returns Result.failure(Exception("something went wrong"))
+        coEvery { dogBreedDao.getAllBreeds() } returns emptyList()
 
         //when
         val actual = subject.getAllBreeds()

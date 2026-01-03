@@ -13,7 +13,7 @@ import com.tobioyelekan.dogbreed.feature.subbreeds.navigation.breedNameArgs
 import com.tobioyelekan.dogbreed.feature.subbreeds.navigation.subBreedNameArgs
 import com.tobioyelekan.dogbreed.feature.subbreeds.usecase.GetSubBreedImageUseCase
 
-class SubBreedViewModel(
+internal class SubBreedViewModel(
     savedStateHandle: SavedStateHandle,
     private val getSubBreedImageUseCase: GetSubBreedImageUseCase
 ) : ViewModel() {
