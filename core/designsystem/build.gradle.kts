@@ -21,6 +21,7 @@ kotlin {
             api(compose.components.uiToolingPreview)
             api(compose.components.resources)
             api(libs.bundles.coil)
+            api(libs.compose.lifecycle.runtime)
         }
 
         androidMain.dependencies {

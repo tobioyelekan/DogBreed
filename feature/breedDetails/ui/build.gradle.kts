@@ -27,7 +27,7 @@ kotlin {
             implementation(libs.navigation.compose)
             implementation(libs.koin.compose.viewmodel)
         }
-        androidUnitTest.dependencies {
+        commonTest.dependencies {
             implementation(projects.core.testing)
             implementation(projects.core.testing.ui)
         }
