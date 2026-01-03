@@ -59,6 +59,7 @@ internal fun DogBreedDetailScreen(
         viewModel.actionState.collect {
             when (it) {
                 is ActionState.ShowMessage -> {
+                    //TODO(tired)
 //                    Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
                 }
             }

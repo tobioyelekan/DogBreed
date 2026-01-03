@@ -36,6 +36,9 @@ kotlin {
             implementation(projects.feature.favorites.ui)
             implementation(projects.feature.subbreeds.ui)
 
+            implementation(projects.core.network.api)
+            implementation(projects.core.database.api)
+
             implementation(projects.core.designsystem)
             implementation(libs.navigation.compose)
             implementation(projects.core.network.implementation)
@@ -49,19 +52,21 @@ kotlin {
             implementation(libs.koin.android)
             implementation(libs.compose.activity)
         }
-        androidUnitTest.dependencies {
+        androidInstrumentedTest.dependencies {
+            implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.androidx.test.core)
             implementation(libs.androidx.test.runner)
-            implementation(libs.compose.ui.test)
             implementation(libs.android.junit)
             implementation(projects.core.testing)
+            implementation(projects.core.testing.ui) {
+                exclude(group = "org.robolectric", module = "robolectric")
+            }
+            implementation(projects.core.testing.integration)
 
-            implementation(libs.androidx.test.core)
             implementation(libs.androidx.test.rules)
             implementation(libs.espresso.core)
-        }
-        androidInstrumentedTest.dependencies {
-
+            implementation(libs.koin.test)
+            implementation(libs.koin.test.junit4)
         }
     }
 }
@@ -82,7 +87,8 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "com.tobioyelekan.dogbreed.testing.DogBreedTestRunner"
+        testInstrumentationRunner =
+            "com.tobioyelekan.dogbreed.core.testing.integration.DogBreedTestRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
