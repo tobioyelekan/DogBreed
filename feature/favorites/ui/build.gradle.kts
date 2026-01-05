@@ -1,12 +1,43 @@
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
-    id("com.google.devtools.ksp")
+    kotlin("multiplatform")
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.jetbrainsCompose)
+    alias(libs.plugins.compose.compiler)
+}
+
+kotlin {
+    jvmToolchain(17)
+    androidTarget()
+    jvm()
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
+
+    sourceSets {
+        commonMain.dependencies {
+            implementation(libs.kotlin.coroutine)
+            implementation(projects.feature.breedDetails.data)
+            implementation(projects.feature.breedDetails.domain)
+            implementation(projects.feature.favorites.domain)
+            implementation(projects.core.designsystem)
+            implementation(projects.core.model)
+            implementation(projects.core.common)
+            implementation(project.dependencies.platform(libs.koin.bom))
+            implementation(libs.koin.core)
+            implementation(libs.koin.compose)
+            implementation(libs.navigation.compose)
+            implementation(libs.koin.compose.viewmodel)
+        }
+        commonTest.dependencies {
+            implementation(projects.core.testing)
+            implementation(projects.core.testing.ui)
+        }
+    }
 }
 
 android {
     namespace = "com.tobioyelekan.dogbreed.feature.favorites"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         minSdk = 24
@@ -28,15 +59,6 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
-    buildFeatures {
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.3"
-    }
     packaging {
         resources.excludes.add("META-INF/*")
     }
@@ -45,25 +67,4 @@ android {
             isIncludeAndroidResources = true
         }
     }
-}
-
-dependencies {
-    implementation(libs.hilt.compose)
-    implementation(libs.hilt.core)
-    ksp(libs.hilt.compiler)
-
-    implementation(libs.kotlin.coroutine)
-
-    implementation(projects.feature.breedDetails.domain)
-    implementation(projects.feature.favorites.domain)
-    implementation(projects.core.designsystem)
-    implementation(projects.core.model)
-    implementation(projects.core.common)
-
-    testImplementation(projects.core.testing)
-    testImplementation(kotlin("test"))
-
-    implementation(libs.robolectric)
-    testImplementation(libs.compose.ui.test)
-    debugImplementation(libs.compose.test.manifest)
 }

@@ -1,11 +1,48 @@
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
+    kotlin("multiplatform")
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.jetbrainsCompose)
+    alias(libs.plugins.compose.compiler)
+}
+
+kotlin {
+    jvmToolchain(17)
+    androidTarget()
+    jvm()
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
+
+    sourceSets {
+        commonMain.dependencies {
+            api(compose.ui)
+            api(compose.material3)
+            api(compose.materialIconsExtended)
+            api(compose.components.uiToolingPreview)
+            api(compose.components.resources)
+            api(libs.bundles.coil)
+            api(libs.compose.lifecycle.runtime)
+        }
+
+        androidMain.dependencies {
+            implementation(libs.ktor.okhttp)
+        }
+
+        iosMain.dependencies {
+            implementation(libs.ktor.darwin)
+        }
+    }
+}
+
+compose.resources {
+    publicResClass = true
+    packageOfResClass = "com.tobioyelekan.dogbreed.core.designsystem"
+    generateResClass = auto
 }
 
 android {
     namespace = "com.tobioyelekan.dogbreed.core.designsystem"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         minSdk = 24
@@ -24,25 +61,7 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
-    buildFeatures {
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.3"
-    }
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
-}
-
-dependencies {
-    implementation(libs.core)
-    api(libs.hilt.compose)
-    api(libs.compose.lifecycle.runtime)
-    api(libs.compose.material3)
-    api(libs.compose.ui.tooling)
-    api(libs.coil.compose)
 }

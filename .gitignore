@@ -16,6 +16,7 @@ captures/
 .cxx/
 *.apk
 output.json
+.kotlin/
 
 # IntelliJ
 *.iml
@@ -37,3 +38,20 @@ google-services.json
 
 **.DS_Store
 **/build
+
+#IOS
+*.xcodeproj/xcuserdata/
+*.xcodeproj/project.xcworkspace/xcuserdata/
+*.xcworkspace/xcuserdata/
+DerivedData/
+*.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+*.xcworkspace/
+!*.xcworkspace/contents.xcworkspacedata
+xcuserdata/
+*.moved-aside
+Pods/
+Podfile.lock
